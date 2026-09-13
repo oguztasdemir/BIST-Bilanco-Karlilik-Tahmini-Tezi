@@ -1,0 +1,16 @@
+================================================================================
+Adım 3: Zeki Firma Eleme Karar Destek Matrisi
+================================================================================
+
+1. BU ADIMDA NE YAPILDI?
+--------------------------------------------------------------------------------
+Yetersiz veri geçmişine sahip (toplamda 4 çeyrek dönemden az gözlemi bulunan) veya hedef değişkeni (t+1 net kârı) boş olan firmalar veri setinden elendi. Bu işlem, modelin öğrenemeyeceği gürültülü verileri temizleyerek tutarlılığı artırdı.
+
+2. GRAFİKLER NE ANLATIYOR?
+--------------------------------------------------------------------------------
+- 3_Zeki_Eleme/3_Zeki_Eleme_Kalan_Giden_*.png: Sektör bazında filtreyi geçen kalan firmalar ile elenen giden firmaların sayılarını gösteren karşılaştırmalı sütun grafiğidir.
+- 3_Zeki_Eleme/3_Zeki_Firma_Eleme_Matrisi_*.png: Hangi dönem eşik değerinin seçildiğini ve bu seçime göre silinen firma ile satır sayılarını gösteren karar destek matrisi tablosudur.
+
+3. ÜRETİLEN EXCEL DOSYALARI
+--------------------------------------------------------------------------------
+3_Final_Filtreli_Veri_*.xlsx

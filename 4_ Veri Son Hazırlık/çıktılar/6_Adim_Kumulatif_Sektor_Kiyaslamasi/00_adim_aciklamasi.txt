@@ -1,0 +1,16 @@
+================================================================================
+Adım 6: Kümülatif Kâr ve Sektör Kıyaslaması (Büyüklük Ölçümü)
+================================================================================
+
+1. BU ADIMDA NE YAPILDI?
+--------------------------------------------------------------------------------
+Firmaların tarihsel büyüklüklerini yansıtmak amacıyla expanding cumsum yöntemiyle kümülatif net kârları hesaplandı. Ayrıca veri sızıntısını (data leakage) engellemek adına Leave-One-Out yöntemi kullanılarak, firmanın kümülatif kârı sektördeki diğer akranlarının ortalaması ile kıyaslanarak Sektorel_Kumulatif_Gorece_Kar türetildi.
+
+2. GRAFİKLER NE ANLATIYOR?
+--------------------------------------------------------------------------------
+- 6_Kumulatif_Kar/6_Kumulatif_Sektor_Kar_Trendi_*.png: Sektörlerin 40 çeyreklik süre boyunca kümülatif olarak ortalama kâr biriktirme ve büyüme hızlarını gösteren, sektörler arası performans gelişimini karşılaştıran çizgi grafiğidir.
+- 6_Kumulatif_Kar/6_Kumulatif_Kar_Buyume_Tablosu_*.png: Sektörler bazında başlangıç-bitiş dönemleri ile ilk ve son dönem kümülatif kâr ortalamalarını ve kümülatif büyüme oranlarını gösteren özet tablodur.
+
+3. ÜRETİLEN EXCEL DOSYALARI
+--------------------------------------------------------------------------------
+6_Final_Kumulatif_Sektor_Kiyaslamasi_*.xlsx

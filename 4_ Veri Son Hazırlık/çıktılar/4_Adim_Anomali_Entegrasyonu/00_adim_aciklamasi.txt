@@ -1,0 +1,16 @@
+================================================================================
+Adım 4: Tarihsel Anomali Entegrasyonu
+================================================================================
+
+1. BU ADIMDA NE YAPILDI?
+--------------------------------------------------------------------------------
+Türkiye ekonomisindeki makro şokları ve kriz dönemlerini (Covid-19 pandemisi, kur şokları, darbe girişimi ve Kahramanmaraş depremleri gibi) temsil eden ikili anomali bayrakları (Anomali_Durumu) veri setine çeyreklik dönem bazında entegre edildi.
+
+2. GRAFİKLER NE ANLATIYOR?
+--------------------------------------------------------------------------------
+- 4_Anomali/4_Anomali_Zaman_Cizelgesi_*.png: 2016 Q1 ile 2025 Q4 arasındaki 40 çeyreklik süreçte hangi çeyreklerin anomali kabul edildiğini ve bunun arkasındaki ekonomik/tarihsel nedenleri takvimsel bir zaman çizelgesiyle gösterir.
+- 4_Anomali/4_Anomali_Sektorel_Dagilim_Tablosu_*.png: Sektörler bazında toplam gözlemlerin, normal dönem gözlemlerinin, anomali dönem gözlemlerinin sayılarını ve anomali oranlarını gösteren özet tablodur.
+
+3. ÜRETİLEN EXCEL DOSYALARI
+--------------------------------------------------------------------------------
+4_Final_Anomali_Entegre_Veri_*.xlsx

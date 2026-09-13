@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIST AI - Akıllı Finansal Kar Tahmin Portalı</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for interactive line plots -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Local Security Credentials -->
+    <script src="database.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-brain logo-icon"></i>
+                <div class="brand-text">
+                    <h1>BIST AI</h1>
+                    <span>Standalone Portal v2.0</span>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-tab="dashboard">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Analiz Paneli</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="trend">
+                    <i class="fa-solid fa-chart-area"></i>
+                    <span>Sektörel Trend Analizi</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="predictor-reg">
+                    <i class="fa-solid fa-calculator"></i>
+                    <span>Kâr Tahmini (Regresyon)</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="predictor-kz">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Kâr/Zarar Sınıflandırma</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="predictor-dir">
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+                    <span>Yön Sınıflandırma</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="competitor-analysis">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                    <span>Rakip Analizi</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="admin">
+                    <i class="fa-solid fa-lock"></i>
+                    <span>Yönetici Paneli</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="currency-selector-container">
+                    <label for="global-currency"><i class="fa-solid fa-coins"></i> Para Birimi</label>
+                    <select id="global-currency">
+                        <option value="USD" selected>USD (Dolar)</option>
+                        <option value="EUR">EUR (Euro)</option>
+                        <option value="TRY">TRY (Türk Lirası)</option>
+                    </select>
+                </div>
+                <div class="status-indicator">
+                    <span class="dot pulse-green"></span>
+                    <span class="status-text">Bağlantı Aktif</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="page-title">
+                    <h2 id="current-tab-title">Analiz Paneli</h2>
+                    <p id="current-tab-desc">BIST şirketlerinin kur bazlı hibrit model başarıları ve karşılaştırmaları.</p>
+                </div>
+                <div class="user-profile">
+                    <div class="profile-info">
+                        <span class="user-name">Tez Analiz Sistemi</span>
+                        <span class="user-role">Yönetici</span>
+                    </div>
+                    <div class="avatar">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- TABS CONTAINER -->
+            <div class="tab-content-container">
+                
+                <!-- TAB 1: WELCOME & SUMMARY -->
+                <section id="tab-dashboard" class="tab-pane active">
+                    <!-- Currency Fallback Notice Banner -->
+                    <div id="metrics-fallback-banner" class="alert-banner" style="display: none;">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span>Seçilen para birimi (<strong id="fallback-requested-curr">EUR</strong>) için akademik model karşılaştırma matrisleri hazır olmadığından, sistem otomatik olarak <strong>USD (Dolar)</strong> analiz verilerini listelemektedir.</span>
+                    </div>
+
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-icon blue"><i class="fa-solid fa-percent"></i></div>
+                            <div class="kpi-data">
+                                <h3 id="kpi-avg-wmape">%12.4</h3>
+                                <span>Ortalama Hibrit WMAPE</span>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon green"><i class="fa-solid fa-shield-halved"></i></div>
+                            <div class="kpi-data">
+                                <h3 id="kpi-avg-cls-acc">%82.3</h3>
+                                <span>Ortalama Sınıflandırma Başarısı</span>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon gold"><i class="fa-solid fa-puzzle-piece"></i></div>
+                            <div class="kpi-data">
+                                <h3 id="kpi-model-ratio">%57.1 / %42.9</h3>
+                                <span>Şampiyon Model (V2 / V1) Oranı</span>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon purple"><i class="fa-solid fa-building"></i></div>
+                            <div class="kpi-data">
+                                <h3 id="kpi-sector-count">7 Sektör</h3>
+                                <span>BIST Panel Kapsamı</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Academic/System summary description -->
+                    <div class="card intro-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-graduation-cap"></i> BIST AI Hibrit Sentez Sistemi Nedir?</h3>
+                        </div>
+                        <div class="card-body">
+                            <p style="font-size: 13.5px; line-height: 1.6; margin-bottom: 20px; color: #e2e8f0;">
+                                Bu platform, Borsa İstanbul (BIST) üzerinde faaliyet gösteren halka açık şirketlerin döviz kurlarındaki (USD, EUR, TRY) değişimlere karşı finansal duyarlılıklarını analiz etmek ve gelecek çeyrek dönem <strong>(t+1) net kâr/zarar performanslarını</strong> yüksek doğrulukla öngörmek amacıyla geliştirilmiş akademik bir **yapay zekâ karar destek sistemidir**.
+                            </p>
+
+                            <div class="intro-grid-container" style="display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 25px;">
+                                <!-- Scope & Aim -->
+                                <div class="intro-block">
+                                    <h4 style="color: var(--color-blue); font-size: 14px; margin-bottom: 8px;"><i class="fa-solid fa-bullseye"></i> 1. Akademik Projenin Amacı ve Kapsamı</h4>
+                                    <p style="font-size: 13px; line-height: 1.6; color: #cbd5e1;">
+                                        Halka açık şirketlerin kur riskini yönetmeleri, döviz pozisyonlarının kârlılık üzerindeki etkilerini tahmin edebilmelerinden geçer. Bu proje, kur hareketlerinin finansal bilançolar üzerindeki karmaşık ve lineer olmayan etkilerini modelleyerek, yatırımcılar ve şirket yöneticileri için otonom veri madenciliği tabanlı bilimsel bir tahmin ve karar aracı sunmayı amaçlamaktadır.
+                                    </p>
+                                </div>
+                                
+                                <!-- Methodology & Pipelines -->
+                                <div class="intro-block">
+                                    <h4 style="color: var(--color-purple); font-size: 14px; margin-bottom: 8px;"><i class="fa-solid fa-diagram-project"></i> 2. Geliştirilen Tahmin ve Veri İşleme Hatları</h4>
+                                    <p style="font-size: 13px; line-height: 1.6; color: #cbd5e1; margin-bottom: 8px;">
+                                        En optimum tahmin başarısını yakalamak adına, veri analizi aşamasında iki farklı akademik pipeline (veri hattı) kurulup kafa kafaya yarıştırılmıştır:
+                                    </p>
+                                    <ul style="margin-left: 20px; font-size: 13px; color: #cbd5e1; list-style-type: square; display: flex; flex-direction: column; gap: 6px;">
+                                        <li><strong>V1 Veri Hattı (Temel Filtreleme):</strong> Değişkenler arasında çoklu doğrusal bağlantıyı (Multicollinearity) arındırmak için <strong>VIF (Variance Inflation Factor < 5.0)</strong> algoritmasıyla öznitelik seçimi yapılmış ve ölçeklenmemiş ham verilerle modeller eğitilmiştir.</li>
+                                        <li><strong>V2 Veri Hattı (Yığınlama / Stacking Ensemble):</strong> Finansal dalgalanmalara karşı daha dayanıklı <strong>RobustScaler</strong> ölçekleme yapılmış, öznitelikler <strong>RFE (Recursive Feature Elimination)</strong> ile elenmiş ve ardından 5 güçlü makine öğrenmesi algoritması (XGBoost, LightGBM, CatBoost, Random Forest, Extra Trees) katmanlı bir <strong>Stacking Ensemble</strong> yapısıyla birleştirilerek meta-modellerle (Ridge ve Logistic Regression) eğitilmiştir.</li>
+                                        <li><strong>Yapboz (Jigsaw) Karar Matrisi:</strong> Her sektörün kendine özgü veri karakteristiğine göre (sayısal, yön ve K/Z hedefleri için) en başarılı performansı veren V1 veya V2 modelini otonom eşleyen hibrit sentezleme yaklaşımıdır.</li>
+                                    </ul>
+                                </div>
+                                
+                                <!-- Pages Walkthrough -->
+                                <div class="intro-block">
+                                    <h4 style="color: var(--color-gold); font-size: 14px; margin-bottom: 8px;"><i class="fa-solid fa-window-maximize"></i> 3. Platform Modülleri ve Sayfa İşlevleri</h4>
+                                    <p style="font-size: 13px; line-height: 1.6; color: #cbd5e1; margin-bottom: 8px;">
+                                        Web portalı, projenin tüm çıktılarını şeffaf ve anlaşılır bir şekilde sunan 4 temel bölümden oluşur:
+                                    </p>
+                                    <ul style="margin-left: 20px; font-size: 13px; color: #cbd5e1; list-style-type: circle; display: flex; flex-direction: column; gap: 6px;">
+                                        <li><strong>Analiz Paneli (Dashboard):</strong> BIST sektörlerinin hibrit Jigsaw karar matrislerinin, V1/V2 metrik karşılaştırma özetlerinin ve hata paylarının izlendiği ana akademik rapor ekranıdır.</li>
+                                        <li><strong>Sektörel Trend Analizi:</strong> Şirketlerin çeyreklik bazda seçilen döviz kurlarındaki finansal kalemlerini tarihsel bazda kıyaslayan, çoklu şirket ve kur seçimine izin veren ve kesikli referans çizgisiyle sektörel ortalamayı çizen görsel analiz aracıdır.</li>
+                                        <li><strong>Kâr Tahmini Regresyonu:</strong> Şirketlerin gerçekleşen kâr eğrileriyle yapay zekanın (t+1) regresyon tahminlerini üst üste çizerek gerçek vs. tahmin doğruluğunu ve finansal özniteliklerin kâr ile korelasyonunu çift Y-eksenli grafikle gösteren sayfadır.</li>
+                                        <li><strong>Yönetici Paneli (Şifre Korumalı):</strong> Eğitimde kullanılan stacking alt yapısını, hangi hücrelerde hangi makine öğrenmesi algoritmalarının eğitildiğini, meta-model parametrelerini ve yerel `.pkb` model dosyası disk yollarını gösteren şeffaflık panelidir.</li>
+                                    </ul>
+                                </div>
+
+                                <!-- Summary of Results -->
+                                <div class="intro-block">
+                                    <h4 style="color: var(--color-green); font-size: 14px; margin-bottom: 8px;"><i class="fa-solid fa-square-poll-vertical"></i> 4. Akademik Bulgular ve Genel Performans Özeti</h4>
+                                    <p style="font-size: 13px; line-height: 1.6; color: #cbd5e1;">
+                                        Bulgularımız, Stacking Ensemble (V2) mimarisinin regresyon hata paylarını (WMAPE) tekli modellere kıyasla kayda değer ölçüde düşürdüğünü kanıtlamıştır. Hibrit sentezleme yaklaşımı (Jigsaw) ise her görev için en doğru veri hattını otonom olarak seçerek genel kararlılığı maksimize etmiştir. Yapılan testlerde, USD bazında kâr/zarar sınıflandırma ve yön tahmini doğruluğunda genel ortalama <strong>%79.5</strong> seviyelerine ulaşılmıştır.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Methodological Decision Roadmap & Dynamic Metrics -->
+                            <div class="roadmap-section">
+                                <h4 style="color: var(--color-gold); font-size: 14.5px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 8px;">
+                                    <i class="fa-solid fa-route" style="color: var(--color-gold);"></i> BIST AI Metodolojik Karar Yol Haritası (Roadmap)
+                                </h4>
+                                <p class="card-subtitle-desc" style="margin-bottom: 15px;">
+                                    Sistemimizin ham veriden otonom olarak en uygun tahmin ve karar modeline nasıl ulaştığını gösteren uçtan uca akış şeması:
+                                </p>
+
+                                <div class="roadmap-flow">
+                                    <div class="roadmap-step">
+                                        <div class="roadmap-step-header">
+                                            <div class="roadmap-step-num">1</div>
+                                            <div class="roadmap-step-title">Ön İşleme & Filtre</div>
+                                        </div>
+                                        <p class="roadmap-step-desc">
+                                            Finansal veriler sisteme yüklenir; gecikmeli öznitelikler (lagging) ve anomali dönem filtreleri arka planda otonom hesaplanır.
+                                        </p>
+                                        <div class="roadmap-step-tags">
+                                            <span class="roadmap-step-tag">Lagging</span>
+                                            <span class="roadmap-step-tag">Anomali</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="roadmap-step">
+                                        <div class="roadmap-step-header">
+                                            <div class="roadmap-step-num">2</div>
+                                            <div class="roadmap-step-title">Öznitelik Seçimi</div>
+                                        </div>
+                                        <p class="roadmap-step-desc">
+                                            Çoklu doğrusal bağlantıyı önlemek için V1 hattında VIF filtrelemesi; V2 hattında ise RobustScaler ve RFE uygulanır.
+                                        </p>
+                                        <div class="roadmap-step-tags">
+                                            <span class="roadmap-step-tag">VIF</span>
+                                            <span class="roadmap-step-tag">RFE</span>
+                                            <span class="roadmap-step-tag">Scaled</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="roadmap-step">
+                                        <div class="roadmap-step-header">
+                                            <div class="roadmap-step-num">3</div>
+                                            <div class="roadmap-step-title">Model Stacking</div>
+                                        </div>
+                                        <p class="roadmap-step-desc">
+                                            V1 tekli güçlü modellerle; V2 ise 5 adet base learner (XGB, LGBM, Cat, RF, ET) ve Ridge/Logistic meta-modellerinden oluşan Stacking ile eğitilir.
+                                        </p>
+                                        <div class="roadmap-step-tags">
+                                            <span class="roadmap-step-tag">5-Base</span>
+                                            <span class="roadmap-step-tag">Meta Ridge</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="roadmap-step">
+                                        <div class="roadmap-step-header">
+                                            <div class="roadmap-step-num">4</div>
+                                            <div class="roadmap-step-title">Yapboz Sentezi</div>
+                                        </div>
+                                        <p class="roadmap-step-desc">
+                                            Her sektörel hücre ve hedef değişken için en iyi performansı veren şampiyon (V1 veya V2) otonom seçilerek hibrit sistem kurulur.
+                                        </p>
+                                        <div class="roadmap-step-tags">
+                                            <span class="roadmap-step-tag">Yapboz</span>
+                                            <span class="roadmap-step-tag">En İyi Skor</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="insights-grid" style="margin-top: 25px;">
+                                    <!-- Panel A: Regression R2 scores -->
+                                    <div class="insight-card">
+                                        <h5><i class="fa-solid fa-chart-bar" style="color: var(--color-blue);"></i> Akademik Sektörel Regresyon R² Skorları (USD)</h5>
+                                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                                            <div class="insight-bar-item">
+                                                <div class="insight-bar-label">
+                                                    <span>SANAYİ VE İMALAT</span>
+                                                    <strong>%53.96</strong>
+                                                </div>
+                                                <div class="insight-bar-wrapper">
+                                                    <div class="insight-bar-fill" style="width: 53.96%;"></div>
+                                                </div>
+                                            </div>
+                                            <div class="insight-bar-item">
+                                                <div class="insight-bar-label">
+                                                    <span>İNŞAAT VE GAYRİMENKUL</span>
+                                                    <strong>%53.96</strong>
+                                                </div>
+                                                <div class="insight-bar-wrapper">
+                                                    <div class="insight-bar-fill purple" style="width: 53.96%;"></div>
+                                                </div>
+                                            </div>
+                                            <div class="insight-bar-item">
+                                                <div class="insight-bar-label">
+                                                    <span>ENERJİ VE HAMMADDE</span>
+                                                    <strong>%52.95</strong>
+                                                </div>
+                                                <div class="insight-bar-wrapper">
+                                                    <div class="insight-bar-fill gold" style="width: 52.95%;"></div>
+                                                </div>
+                                            </div>
+                                            <div class="insight-bar-item">
+                                                <div class="insight-bar-label">
+                                                    <span>HİZMETLER (TİCARET &amp; PAZ.)</span>
+                                                    <strong>%51.29</strong>
+                                                </div>
+                                                <div class="insight-bar-wrapper">
+                                                    <div class="insight-bar-fill green" style="width: 51.29%;"></div>
+                                                </div>
+                                            </div>
+                                            <div class="insight-bar-item">
+                                                <div class="insight-bar-label">
+                                                    <span>FİNANS VE YATIRIM</span>
+                                                    <strong>%50.75</strong>
+                                                </div>
+                                                <div class="insight-bar-wrapper">
+                                                    <div class="insight-bar-fill" style="width: 50.75%;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Panel B: Global synthesis performance -->
+                                    <div class="insight-card">
+                                        <h5><i class="fa-solid fa-circle-check" style="color: var(--color-green);"></i> Hibrit Yapboz Sentez Başarı Sonuçları</h5>
+                                        <div class="insight-metric-list">
+                                            <div class="insight-metric-row">
+                                                <span>Ortalama Hibrit WMAPE Hata Oranı</span>
+                                                <span class="insight-metric-val blue" id="kpi-avg-wmape-detail">%12.40</span>
+                                            </div>
+                                            <div class="insight-metric-row">
+                                                <span>Sınıflandırma Başarısı (K/Z Accuracy)</span>
+                                                <span class="insight-metric-val green" id="kpi-avg-cls-kz-detail">%79.50</span>
+                                            </div>
+                                            <div class="insight-metric-row">
+                                                <span>Sınıflandırma Başarısı (Yön Accuracy)</span>
+                                                <span class="insight-metric-val purple" id="kpi-avg-cls-yon-detail">%68.83</span>
+                                            </div>
+                                            <div class="insight-metric-row">
+                                                <span>Şampiyon Model Dağılım Oranı (V2 Stacking / V1)</span>
+                                                <span class="insight-metric-val gold" id="kpi-model-ratio-detail">%57.14 / %42.86</span>
+                                            </div>
+                                            <div class="insight-metric-row">
+                                                <span>Toplam Analiz Edilen Halka Açık Şirket</span>
+                                                <span class="insight-metric-val" id="kpi-total-cos-detail">376 Firma</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Jigsaw Decision Matrix Table -->
+                    <div class="card table-card mt-20">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-puzzle-piece"></i> BIST Sektörel Hibrit Yapboz Karar Matrisi</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="responsive-table-container">
+                                <table class="custom-table" id="jigsaw-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Sektör</th>
+                                            <th>Reg. Sayısal Versiyon</th>
+                                            <th>Reg. Sayısal Skor (%)</th>
+                                            <th>Reg. Yön Versiyon</th>
+                                            <th>Reg. Yön Skor (%)</th>
+                                            <th>Reg. K/Z Versiyon</th>
+                                            <th>Reg. K/Z Skor (%)</th>
+                                            <th>Sınıf. Yön Versiyon</th>
+                                            <th>Sınıf. Yön Skor (%)</th>
+                                            <th>Sınıf. K/Z Versiyon</th>
+                                            <th>Sınıf. K/Z Skor (%)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="11" class="text-center">Veriler yükleniyor...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- V1 vs V2 Baseline Comparison Table -->
+                    <div class="card table-card mt-20">
+                        <div class="card-header" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));">
+                            <h3><i class="fa-solid fa-code-compare" style="color: var(--color-gold);"></i> V1 vs V2 Performans Karşılaştırma Özeti (Sayısal WMAPE &amp; Sınıflandırma Başarısı)</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-subtitle-desc">
+                                V1 (Ölçeklemesiz, VIF tabanlı eleme) ve V2 (Ölçekli, RFE + Stacking) veri hatlarının sayısal tahmin hata paylarını (WMAPE) ve sınıflandırma doğruluk oranlarını doğrudan kıyaslayan akademik özet tablosu. En iyi performans gösteren değerler yeşil renkle vurgulanmıştır.
+                            </p>
+                            <div class="responsive-table-container">
+                                <table class="custom-table" id="comparison-summary-table">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2" style="vertical-align: middle;">Sektör</th>
+                                            <th colspan="2" class="text-center" style="border-bottom: 2px solid rgba(0, 210, 255, 0.2); padding: 6px;">Reg. Model</th>
+                                            <th colspan="2" class="text-center" style="border-bottom: 2px solid rgba(174, 82, 255, 0.2); padding: 6px;">WMAPE (%) (Düşük İyi)</th>
+                                            <th colspan="2" class="text-center" style="border-bottom: 2px solid rgba(0, 242, 124, 0.2); padding: 6px;">K/Z Sınıf. Başarısı (%)</th>
+                                            <th colspan="2" class="text-center" style="border-bottom: 2px solid rgba(255, 179, 0, 0.2); padding: 6px;">Yön Sınıf. Başarısı (%)</th>
+                                        </tr>
+                                        <tr>
+                                            <th>V1</th>
+                                            <th>V2</th>
+                                            <th>V1</th>
+                                            <th>V2</th>
+                                            <th>V1</th>
+                                            <th>V2</th>
+                                            <th>V1</th>
+                                            <th>V2</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="9" class="text-center">Yükleniyor...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side-by-side V1 and V2 Performance Tables -->
+                    <div class="metrics-tables-grid mt-20">
+                        <!-- V1 Table Card -->
+                        <div class="card table-card">
+                            <div class="card-header" style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));">
+                                <h3><i class="fa-solid fa-gears" style="color: #00d2ff;"></i> V1 Veri Hattı (VIF Özellik Seçimi)</h3>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-subtitle-desc">Ölçeklemesiz ham veriler ve Çoklu Doğrusal Bağlantı (VIF &lt; 5.0) tabanlı özellik elenmesi ile eğitilen temel modeller.</p>
+                                <div class="responsive-table-container">
+                                    <table class="custom-table" id="v1-metrics-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Sektör</th>
+                                                <th>Reg. Model</th>
+                                                <th>WMAPE (%)</th>
+                                                <th>K/Z Model</th>
+                                                <th>K/Z Acc (%)</th>
+                                                <th>Yön Model</th>
+                                                <th>Yön Acc (%)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="7" class="text-center">Yükleniyor...</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- V2 Table Card -->
+                        <div class="card table-card">
+                            <div class="card-header" style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));">
+                                <h3><i class="fa-solid fa-layer-group" style="color: #ae52ff;"></i> V2 Veri Hattı (RFE + Stacking Ensemble)</h3>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-subtitle-desc">RobustScaler ölçeklemeli veriler, RFE özellik seçimi ve çoklu model tahminini harmanlayan Stacking meta-modelleme.</p>
+                                <div class="responsive-table-container">
+                                    <table class="custom-table" id="v2-metrics-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Sektör</th>
+                                                <th>Reg. Model</th>
+                                                <th>WMAPE (%)</th>
+                                                <th>K/Z Model</th>
+                                                <th>K/Z Acc (%)</th>
+                                                <th>Yön Model</th>
+                                                <th>Yön Acc (%)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="7" class="text-center">Yükleniyor...</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 2: SECTORAL TREND ANALYSIS (Interactive Line Charts) -->
+                <section id="tab-trend" class="tab-pane">
+                    <div class="trend-analysis-layout">
+                        <!-- Left Panel: Selections and Feature checkboxes -->
+                        <div class="card control-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-filter"></i> Veri Filtreleme</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-row" style="display: grid; grid-template-columns: 1.2fr 1.5fr 1.2fr auto; gap: 20px; align-items: start;">
+                                    <div class="form-group">
+                                        <label for="trend-sector">Sektör</label>
+                                        <select id="trend-sector" class="form-control">
+                                            <option value="">Sektör Seçin...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group custom-multiselect-group" style="position: relative;">
+                                        <label>Firma Adı (Çoklu Seçim)</label>
+                                        <div id="company-multiselect-trigger" class="form-control" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center; min-height: 42px; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); border-radius: 8px; padding: 8px 12px; color: #e2e8f0; user-select: none;">
+                                            <span id="company-multiselect-placeholder">Firma Seçin...</span>
+                                            <i class="fa-solid fa-chevron-down" style="font-size: 12px; color: #94a3b8;"></i>
+                                        </div>
+                                        <div id="company-multiselect-dropdown" style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: #0f172a; border: 1px solid var(--border-color); border-radius: 8px; margin-top: 5px; z-index: 1000; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5); padding: 10px;">
+                                            <input type="text" id="company-search" placeholder="Firma ara..." class="form-control" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); margin-bottom: 10px; height: 35px; font-size: 13px;">
+                                            <div id="company-checkboxes-container" style="max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
+                                                <div class="empty-state-small">Sektör seçildiğinde firmalar listelenecektir.</div>
+                                            </div>
+                                        </div>
+                                        <select id="trend-company" class="form-control" multiple style="display: none;"></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Para Birimi</label>
+                                        <div class="btn-group-currency" style="display: flex; gap: 6px; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); padding: 4px; border-radius: 8px; height: 42px; align-items: center;">
+                                            <button type="button" class="btn-currency active" data-currency="USD" style="flex: 1; border: none; background: transparent; color: #94a3b8; padding: 6px 10px; border-radius: 6px; font-weight: 500; font-size: 12px; cursor: pointer; transition: all 0.2s;">USD</button>
+                                            <button type="button" class="btn-currency" data-currency="TRY" style="flex: 1; border: none; background: transparent; color: #94a3b8; padding: 6px 10px; border-radius: 6px; font-weight: 500; font-size: 12px; cursor: pointer; transition: all 0.2s;">TRY</button>
+                                            <button type="button" class="btn-currency" data-currency="EUR" style="flex: 1; border: none; background: transparent; color: #94a3b8; padding: 6px 10px; border-radius: 6px; font-weight: 500; font-size: 12px; cursor: pointer; transition: all 0.2s;">EUR</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="margin-top: 28px;">
+                                        <label class="feature-checkbox-label" style="border: 1px solid var(--border-color); background: rgba(255,255,255,0.02); padding: 12px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; user-select: none;">
+                                            <input type="checkbox" id="trend-show-avg" value="true" style="cursor: pointer;">
+                                            <span>Sektör Ortalamasını Göster</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="separator"></div>
+                                <div class="features-checklist-wrapper">
+                                    <label><i class="fa-solid fa-list-check"></i> Grafikte Çizilecek Özellikler (Maks 4)</label>
+                                    <div id="trend-features-list" class="features-checklist">
+                                        <div class="empty-state-small">Firma seçildiğinde özellikler listelenecektir.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Interactive Line Chart -->
+                        <div class="card chart-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-chart-line"></i> Zaman Serisi Finansal Trend Analizi</h3>
+                            </div>
+                            <div class="card-body chart-body">
+                                <div id="chart-placeholder" class="chart-placeholder">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                    <p>Grafiği çizdirmek için soldan en az bir özellik seçiniz.</p>
+                                </div>
+                                <div class="canvas-container" style="position: relative; height:450px; width:100%; display:none;">
+                                    <canvas id="trend-line-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 3: REGRESSION PREDICTOR (Interactive Line Charts) -->
+                <section id="tab-predictor-reg" class="tab-pane">
+                    <div class="trend-analysis-layout">
+                        <!-- Top Panel: Selections and Feature checkbox -->
+                        <div class="card control-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-filter"></i> Veri Filtreleme (Kâr Tahmin Regresyonu)</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-row" style="display: grid; grid-template-columns: 1.2fr 1.5fr 1.2fr auto; gap: 20px; align-items: start;">
+                                    <div class="form-group">
+                                        <label for="reg-trend-sector">Sektör</label>
+                                        <select id="reg-trend-sector" class="form-control">
+                                            <option value="">Sektör Seçin...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reg-trend-company">Firma Adı</label>
+                                        <select id="reg-trend-company" class="form-control" disabled>
+                                            <option value="">Firma Seçin...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Para Birimi</label>
+                                        <div class="btn-group-currency" id="reg-currency-group" style="display: flex; gap: 6px; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); padding: 4px; border-radius: 8px; height: 42px; align-items: center;">
+                                            <button type="button" class="btn-currency active" data-currency="USD" style="flex: 1; border: none; background: transparent; color: #94a3b8; padding: 6px 10px; border-radius: 6px; font-weight: 500; font-size: 12px; cursor: pointer; transition: all 0.2s;">USD</button>
+                                            <button type="button" class="btn-currency" data-currency="TRY" style="flex: 1; border: none; background: transparent; color: #94a3b8; padding: 6px 10px; border-radius: 6px; font-weight: 500; font-size: 12px; cursor: pointer; transition: all 0.2s;">TRY</button>
+                                            <button type="button" class="btn-currency" data-currency="EUR" style="flex: 1; border: none; background: transparent; color: #94a3b8; padding: 6px 10px; border-radius: 6px; font-weight: 500; font-size: 12px; cursor: pointer; transition: all 0.2s;">EUR</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="margin-top: 28px;">
+                                        <label class="feature-checkbox-label" style="border: 1px solid var(--border-color); background: rgba(255,255,255,0.02); padding: 12px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; user-select: none;">
+                                            <input type="checkbox" id="reg-trend-show-avg" value="true" style="cursor: pointer;">
+                                            <span>Sektör Ortalamasını Göster</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="separator"></div>
+                                <div class="features-checklist-wrapper">
+                                    <label><i class="fa-solid fa-list-check"></i> Grafikte Kıyaslanacak Finansal Özellik (Lütfen 1 Adet Seçiniz)</label>
+                                    <div id="reg-trend-features-list" class="features-checklist">
+                                        <div class="empty-state-small">Firma seçildiğinde özellikler listelenecektir.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Panel: Interactive Line Chart -->
+                        <div class="card chart-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-chart-line"></i> Zaman Serisi Kar Tahmini ve Kıyaslama Analizi</h3>
+                            </div>
+                            <div class="card-body chart-body">
+                                <div id="reg-chart-placeholder" class="chart-placeholder">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                    <p>Grafiği çizdirmek için yukarıdan bir firma ve kıyaslanacak bir özellik seçiniz.</p>
+                                </div>
+                                <div class="canvas-container" id="reg-canvas-container" style="position: relative; height:450px; width:100%; display:none;">
+                                    <canvas id="reg-trend-line-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="reg-analysis-comment-box" style="display: none; margin-top: 25px; padding: 25px; background: rgba(8, 12, 20, 0.4); border: 1px solid var(--border-color); border-radius: 12px; width: 100%;">
+                        <h4 style="color: var(--color-gold); font-size: 15px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                            <i class="fa-solid fa-comment-dots" style="color: var(--color-gold);"></i> Dönem Dönem Kıyaslama &amp; Finansal Analitik Yorumu
+                        </h4>
+                        <div id="reg-analysis-comment-text" style="color: #cbd5e1; font-size: 13.5px; line-height: 1.7; max-height: 400px; overflow-y: auto; padding-right: 8px;">
+                            Yorumlar yükleniyor...
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 4: PROFITABILITY CLASSIFIER -->
+                <section id="tab-predictor-kz" class="tab-pane">
+                    <div class="predictor-tab-grid">
+                        <div class="card form-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-calculator"></i> Sektörel Kâr Başarımı Sınıflandırması</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-row-two" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                    <div class="form-group">
+                                        <label for="kz-sector">Sektör</label>
+                                        <select id="kz-sector" class="form-control">
+                                            <option value="">Sektör Seçin...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="kz-company">Firma Adı</label>
+                                        <select id="kz-company" class="form-control" disabled>
+                                            <option value="">Firma Seçin...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-actions" style="margin-top: 25px;">
+                                    <button id="btn-predict-kz" class="btn btn-green" disabled>
+                                        <i class="fa-solid fa-shield-halved"></i> ANALİZİ BAŞLAT
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Results Output Panel -->
+                        <div class="card output-card" id="kz-results-card" style="display: none;">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-ranking-star"></i> Sektörel Kâr Başarımı Raporu</h3>
+                                <span class="badge badge-info" id="badge-kz-ver">Versiyon: -</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="results-metadata-grid" style="margin-bottom: 20px;">
+                                    <div class="meta-card">
+                                        <span>Toplam Dönem</span>
+                                        <strong id="kz-total-periods-text">-</strong>
+                                    </div>
+                                    <div class="meta-card">
+                                        <span>Doğru Tahmin</span>
+                                        <strong id="kz-correct-preds-text">-</strong>
+                                    </div>
+                                    <div class="meta-card">
+                                        <span>Model Başarı Oranı (Accuracy)</span>
+                                        <strong id="kz-accuracy-text">-</strong>
+                                    </div>
+                                </div>
+
+                                <h4 style="margin-bottom: 12px; color: var(--color-teal);"><i class="fa-solid fa-table-list"></i> Çeyreklik Kâr Başarımı Tahmin Detayları</h4>
+                                <div class="responsive-table-container" style="margin-bottom: 20px; max-height: 320px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.06); border-radius: 4px;">
+                                    <table class="custom-table" id="kz-period-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Tahmin Dönemi</th>
+                                                <th>Model Tahmini</th>
+                                                <th>Gerçekleşen Durum</th>
+                                                <th>Sonuç</th>
+                                                <th>Mevsimsellik</th>
+                                                <th>Anomali</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Dynamically loaded -->
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div id="kz-narrative-box" class="comment-box" style="display: block; margin-top: 15px; border-left: 3px solid var(--color-green); background: rgba(16, 185, 129, 0.05); padding: 15px; border-radius: 4px;">
+                                    <h4 style="margin-bottom: 8px; color: var(--color-green);"><i class="fa-solid fa-circle-info"></i> Sektörel Karar Analizi Yorumu</h4>
+                                    <p id="kz-narrative-text" style="font-size: 13px; line-height: 1.6; color: #e2e8f0;"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bottom Panel: Interactive Line Chart -->
+                    <div class="card chart-card" id="kz-chart-card" style="display: none; margin-top: 25px; width: 100%; min-height: auto; height: 420px;">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-chart-line"></i> Tarihsel Net Dönem Kârı ve Sektör Kıyaslaması</h3>
+                        </div>
+                        <div class="card-body chart-body" style="height: 340px;">
+                            <div class="canvas-container" style="position: relative; height: 100%; width: 100%;">
+                                <canvas id="kz-trend-line-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 5: DIRECTION CLASSIFIER -->
+                <section id="tab-predictor-dir" class="tab-pane">
+                    <div class="predictor-tab-grid">
+                        <div class="card form-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-arrow-trend-up"></i> Kâr Değişim Yönü Sınıflandırması</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-row-two" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                                    <div class="form-group">
+                                        <label for="dir-sector">Sektör</label>
+                                        <select id="dir-sector" class="form-control">
+                                            <option value="">Sektör Seçin...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="dir-company">Firma Adı</label>
+                                        <select id="dir-company" class="form-control" disabled>
+                                            <option value="">Firma Seçin...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-actions" style="margin-top: 25px;">
+                                    <button id="btn-predict-dir" class="btn btn-primary" disabled>
+                                        <i class="fa-solid fa-arrow-trend-up"></i> ANALİZİ BAŞLAT
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Results Output Panel -->
+                        <div class="card output-card" id="dir-results-card" style="display: none;">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-square-poll-vertical"></i> Kâr Değişim Yönü Raporu</h3>
+                                <span class="badge badge-info" id="badge-dir-ver">Versiyon: -</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="results-metadata-grid" style="margin-bottom: 20px;">
+                                    <div class="meta-card">
+                                        <span>Toplam Dönem</span>
+                                        <strong id="dir-total-periods-text">-</strong>
+                                    </div>
+                                    <div class="meta-card">
+                                        <span>Doğru Tahmin</span>
+                                        <strong id="dir-correct-preds-text">-</strong>
+                                    </div>
+                                    <div class="meta-card">
+                                        <span>Model Başarı Oranı (Accuracy)</span>
+                                        <strong id="dir-accuracy-text">-</strong>
+                                    </div>
+                                </div>
+
+                                <h4 style="margin-bottom: 12px; color: var(--color-teal);"><i class="fa-solid fa-table-list"></i> Çeyreklik Kâr Değişim Yönü Tahmin Detayları</h4>
+                                <div class="responsive-table-container" style="margin-bottom: 20px; max-height: 320px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.06); border-radius: 4px;">
+                                    <table class="custom-table" id="dir-period-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Tahmin Dönemi</th>
+                                                <th>Model Tahmini</th>
+                                                <th>Gerçekleşen Durum</th>
+                                                <th>Sonuç</th>
+                                                <th>Mevsimsellik</th>
+                                                <th>Anomali</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Dynamically loaded -->
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div id="dir-narrative-box" class="comment-box" style="display: block; margin-top: 15px; border-left: 3px solid var(--color-blue); background: rgba(59, 130, 246, 0.05); padding: 15px; border-radius: 4px;">
+                                    <h4 style="margin-bottom: 8px; color: var(--color-blue);"><i class="fa-solid fa-circle-info"></i> Sektörel Yön Sınıflandırma Yorumu</h4>
+                                    <p id="dir-narrative-text" style="font-size: 13px; line-height: 1.6; color: #e2e8f0;"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bottom Panel: Interactive Line Chart -->
+                    <div class="card chart-card" id="dir-chart-card" style="display: none; margin-top: 25px; width: 100%; min-height: auto; height: 420px;">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-chart-line"></i> Tarihsel Net Dönem Kârı ve Sektör Kıyaslaması</h3>
+                        </div>
+                        <div class="card-body chart-body" style="height: 340px;">
+                            <div class="canvas-container" style="position: relative; height: 100%; width: 100%;">
+                                <canvas id="dir-trend-line-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- TAB 5.5: COMPETITOR ANALYSIS -->
+                <section id="tab-competitor-analysis" class="tab-pane">
+                    <div class="predictor-tab-grid">
+                        <div class="card form-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-scale-balanced"></i> Sektörel Rakip Analizi Filtreleri</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="comp-sector">Sektör</label>
+                                        <select id="comp-sector" class="form-control">
+                                            <option value="">Sektör Seçin...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="comp-company">Firma Adı</label>
+                                        <select id="comp-company" class="form-control" disabled>
+                                            <option value="">Önce Sektör Seçin...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-actions" style="margin-top: 15px;">
+                                    <button id="btn-run-comp-analysis" class="btn btn-primary" disabled>
+                                        <i class="fa-solid fa-magnifying-glass-chart"></i> RAKİP ANALİZİ YAP
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Results Card -->
+                        <div class="card output-card" id="comp-results-card" style="display: none;">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-ranking-star"></i> Sektörel Pozisyon & Kıyaslama Raporu</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="results-metadata-grid" style="margin-bottom: 20px;">
+                                    <div class="meta-card">
+                                        <span>Sektör Büyüklük Sıralaması</span>
+                                        <strong id="comp-avg-rank-text">-</strong>
+                                    </div>
+                                    <div class="meta-card">
+                                        <span>En İyi Sıralama</span>
+                                        <strong id="comp-best-rank-text">-</strong>
+                                    </div>
+                                    <div class="meta-card">
+                                        <span>En Kötü Sıralama</span>
+                                        <strong id="comp-worst-rank-text">-</strong>
+                                    </div>
+                                </div>
+
+                                <div style="display: flex; justify-content: flex-end; margin-top: -12px; margin-bottom: 20px;">
+                                    <span style="font-size: 11.5px; color: #94a3b8; background: rgba(30, 41, 59, 0.4); padding: 5px 12px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; gap: 6px;">
+                                        <i class="fa-solid fa-circle-info" style="color: var(--color-blue);"></i> 
+                                        Kıyaslama <strong>Net Dönem Kârı (t+1)</strong> değişkenine bakılarak yapılmaktadır.
+                                    </span>
+                                </div>
+
+                                <h4 style="margin-bottom: 12px; color: var(--color-teal);"><i class="fa-solid fa-chart-line"></i> Kârlılık (t+1 Çeyrek) Trend Kıyaslaması</h4>
+                                <div class="chart-container" style="position: relative; height: 320px; width: 100%; margin-bottom: 20px;">
+                                    <canvas id="comp-rank-chart"></canvas>
+                                </div>
+
+                                <h4 style="margin-bottom: 12px; color: var(--color-teal);"><i class="fa-solid fa-table-list"></i> Çeyreklik Karşılaştırma Detayları</h4>
+                                <div class="responsive-table-container" style="margin-bottom: 20px; max-height: 320px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.06); border-radius: 4px;">
+                                    <table class="custom-table" id="comp-period-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Tahmin Dönemi</th>
+                                                <th>Firma Değeri</th>
+                                                <th>Sektör Ortalaması</th>
+                                                <th>Sektör Medyanı</th>
+                                                <th>Sıralama / Firma</th>
+                                                <th>Yüzdelik Dilim</th>
+                                                <th>Sektör Konumu</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Dynamically loaded -->
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div id="comp-narrative-box" class="comment-box" style="display: block; margin-top: 15px; border-left: 3px solid var(--color-blue); background: rgba(59, 130, 246, 0.05); padding: 15px; border-radius: 4px;">
+                                    <h4 style="margin-bottom: 8px; color: var(--color-blue);"><i class="fa-solid fa-circle-info"></i> Sektörel Analiz Yorumu</h4>
+                                    <p id="comp-narrative-text" style="font-size: 13px; line-height: 1.6; color: #e2e8f0;"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- TAB 6: ADMIN PANEL (Secure Database & Workflow Details) -->
+                <section id="tab-admin" class="tab-pane">
+                    <!-- Secure Lock Screen -->
+                    <div id="admin-lock-screen">
+                        <div class="admin-login-container">
+                            <div class="admin-login-card">
+                                <div class="lock-icon-lg"><i class="fa-solid fa-lock"></i></div>
+                                <h3>Yönetici Girişi</h3>
+                                <p>Veri mimarisi ve eğitim metodolojisi detayları için kimlik bilgilerinizi giriniz.</p>
+                                <div id="admin-login-error" style="display: none; color: #ef4444; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); padding: 10px; border-radius: 8px; font-size: 13px; margin-bottom: 20px;">
+                                    Kullanıcı adı veya şifre hatalı!
+                                </div>
+                                <div class="form-group">
+                                    <label for="admin-username">Kullanıcı Adı</label>
+                                    <input type="text" id="admin-username" placeholder="Kullanıcı adınızı girin...">
+                                </div>
+                                <div class="form-group">
+                                    <label for="admin-password">Şifre</label>
+                                    <input type="password" id="admin-password" placeholder="Şifrenizi girin...">
+                                </div>
+                                <button type="button" id="btn-admin-login" class="btn btn-primary" style="margin-top: 10px; width: 100%;">
+                                    GİRİŞ YAP
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Secure Authenticated Dashboard Content -->
+                    <div id="admin-secure-content" style="display: none;">
+                        <div class="admin-dashboard">
+                            <div class="admin-header">
+                                <h3><i class="fa-solid fa-screwdriver-wrench" style="color: var(--color-gold);"></i> BIST AI Sistem Mimarisi & Veri Yönetimi</h3>
+                                <button id="btn-admin-logout" class="btn btn-primary" style="width: auto; padding: 8px 16px; font-size: 12px; height: 36px; border-radius: 8px; background: #ef4444; box-shadow: none;">Güvenli Çıkış</button>
+                            </div>
+
+                            <!-- Summary metrics -->
+                            <div class="admin-summary-grid">
+                                <div class="admin-stat-card">
+                                    <div class="admin-stat-icon blue"><i class="fa-solid fa-database"></i></div>
+                                    <div class="admin-stat-info">
+                                        <h4>Toplam Veri Kapsamı</h4>
+                                        <span>7 Sektör / 376 Şirket</span>
+                                    </div>
+                                </div>
+                                <div class="admin-stat-card">
+                                    <div class="admin-stat-icon green"><i class="fa-solid fa-microchip"></i></div>
+                                    <div class="admin-stat-info">
+                                        <h4>Katman-0 Modelleri</h4>
+                                        <span>5 Ayrı Algoritma</span>
+                                    </div>
+                                </div>
+                                <div class="admin-stat-card">
+                                    <div class="admin-stat-icon purple"><i class="fa-solid fa-code-fork"></i></div>
+                                    <div class="admin-stat-info">
+                                        <h4>Mevcut Veri Hatları</h4>
+                                        <span>V1 & V2 (Hibrit Sentez)</span>
+                                    </div>
+                                </div>
+                                <div class="admin-stat-card">
+                                    <div class="admin-stat-icon gold"><i class="fa-solid fa-key"></i></div>
+                                    <div class="admin-stat-info">
+                                        <h4>Yetki Seviyesi</h4>
+                                        <span>Tam Erişim (Root)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="admin-workflow-grid">
+                                <!-- Comprehensive Data & Project Details -->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3><i class="fa-solid fa-file-excel"></i> Veri Tabanı Mimarisi & Öznitelik Yapısı</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="responsive-table-container">
+                                            <table class="custom-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Veri Kümesi Adı</th>
+                                                        <th>Özellik Sayısı</th>
+                                                        <th>Açıklama</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><strong>V1 Veri Seti (VIF)</strong></td>
+                                                        <td>26 Sütun</td>
+                                                        <td>Collinearity'yi (Çoklu doğrusal bağıntıyı) önlemek için Variance Inflation Factor (VIF &lt; 5.0) ile filtrelenmiş ham veri kümesi.</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>V2 Veri Seti (Scaled)</strong></td>
+                                                        <td>25 Sütun</td>
+                                                        <td>Aykırı değerlerin etkisini azaltmak için RobustScaler uygulanmış ve RFE özellik seçimi yapılmış veri kümesi.</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Zeki Eleme Çıktıları</strong></td>
+                                                        <td>21 Sütun</td>
+                                                        <td>Lagging ve anomali filtrelerinin otomatik arka plan hesaplamaları için elenmiş, ham finansal gösterge veri kümesi.</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Şampiyon Modeller</strong></td>
+                                                        <td>Model Özel</td>
+                                                        <td>V1 ve V2 veri hatlarının en başarılı tekli ve Stacking ensemble modellerini barındıran pickle nesneleri.</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Training & Stacking Methods -->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3><i class="fa-solid fa-diagram-project"></i> Stacking Ensemble Eğitim Metodolojisi</h3>
+                                    </div>
+                                    <div class="card-body" style="font-size: 13px; line-height: 1.6; color: #e2e8f0; display: flex; flex-direction: column; gap: 15px;">
+                                        <p>
+                                            V2 veri hattı üzerinde uygulanan <strong>Stacking Ensemble (Yığınlama Topluluğu)</strong> yöntemi, modellerin birbirlerinin hatalarını kompanse etmesini sağlar. Eğitim süreci şu adımlarla gerçekleştirilmiştir:
+                                        </p>
+                                        
+                                        <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);">
+                                            <strong style="color: var(--color-blue);"><i class="fa-solid fa-layer-group"></i> Katman-0 (Base Learners):</strong>
+                                            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;">
+                                                <span class="algo-tag algo-cat">CatBoost</span>
+                                                <span class="algo-tag algo-lgb">LightGBM</span>
+                                                <span class="algo-tag algo-xgb">XGBoost</span>
+                                                <span class="algo-tag algo-rf">Random Forest</span>
+                                                <span class="algo-tag algo-et">Extra Trees</span>
+                                            </div>
+                                            <p style="margin-top: 8px; font-size: 12px; color: #94a3b8;">
+                                                5 temel makine öğrenmesi algoritması, 5-Fold Cross-Validation kullanılarak eğitilmiş ve out-of-fold tahminlerden oluşan meta-veri kümesi türetilmiştir.
+                                            </p>
+                                        </div>
+
+                                        <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);">
+                                            <strong style="color: #ae52ff;"><i class="fa-solid fa-puzzle-piece"></i> Katman-1 (Meta-Learner):</strong>
+                                            <p style="margin-top: 4px; font-size: 12px; color: #e2e8f0;">
+                                                Katman-0 algoritmalarının tahminlerini nihai tahmin değerine eşleyen üst modeldir:
+                                            </p>
+                                            <ul style="margin-left: 15px; margin-top: 4px; font-size: 12px; color: #94a3b8; list-style-type: disc;">
+                                                <li><strong>Regresyon Görevleri için:</strong> Doğrusal kombinasyonu optimize eden <strong>Ridge Regression</strong>.</li>
+                                                <li><strong>Sınıflandırma Görevleri için:</strong> Olasılıkları ağırlıklandıran <strong>Logistic Regression</strong>.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sector Cell Level Training & Stacking Methods Map -->
+                            <div class="card mt-20">
+                                <div class="card-header">
+                                    <h3><i class="fa-solid fa-table-cells-large"></i> Sektörel Stacking & Model Hücre Eşleşmeleri Detayı</h3>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-subtitle-desc">Projeksiyon sisteminde V1 ve V2 veri hatlarının her bir sektörel karar hücresi için eğitilmiş olduğu yöntemlerin ve şampiyon seçilen stacking haritalaması:</p>
+                                    <div class="responsive-table-container">
+                                        <table class="custom-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Sektör</th>
+                                                    <th>Regresyon (Sayısal Tahmin) Eğitim Metodu</th>
+                                                    <th>Yön Sınıflandırma Eğitim Metodu</th>
+                                                    <th>K/Z Sınıflandırma Eğitim Metodu</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>SANAYİ VE İMALAT (125 Firma)</strong></td>
+                                                    <td>
+                                                        <span class="algo-tag algo-stack">Ridge Meta Stacking (V2)</span>
+                                                        <div class="cell-subtext">
+                                                            <strong>Meta Ağırlıkları:</strong><br>
+                                                            XGBoost: %78.4 | CatBoost: %11.2 | ExtraTrees: %8.3 | LightGBM: %2.1 | RF: %0.0
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-cat">CatBoost Classifier (V2)</span>
+                                                        <div class="cell-subtext">RFE: 25 Öznitelik | Doğruluk: %62.10</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-rf">Random Forest Classifier (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | Doğruluk: %80.60</div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>FİNANS VE YATIRIM (88 Firma)</strong></td>
+                                                    <td>
+                                                        <span class="algo-tag algo-cat">CatBoost Regressor (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | R² Skoru: %50.75</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-cat">CatBoost Classifier (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | Doğruluk: %74.68</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-rf">Random Forest Classifier (V2)</span>
+                                                        <div class="cell-subtext">RFE: 25 Öznitelik | Doğruluk: %80.09</div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>İNŞAAT VE GAYRİMENKUL (59 Firma)</strong></td>
+                                                    <td>
+                                                        <span class="algo-tag algo-stack">Ridge Meta Stacking (V2)</span>
+                                                        <div class="cell-subtext">
+                                                            <strong>Meta Ağırlıkları:</strong><br>
+                                                            XGBoost: %69.7 | CatBoost: %18.5 | ExtraTrees: %11.7 | LightGBM: %0.1 | RF: %0.0
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-xgb">XGBoost Classifier (V2)</span>
+                                                        <div class="cell-subtext">RFE: 25 Öznitelik | Doğruluk: %71.91</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-cat">CatBoost Classifier (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | Doğruluk: %76.60</div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>TİCARET VE PAZARLAMA (32 Firma)</strong></td>
+                                                    <td>
+                                                        <span class="algo-tag algo-cat">CatBoost Regressor (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | R² Skoru: %51.29</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-rf">Random Forest Classifier (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | Doğruluk: %67.84</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-rf">Random Forest Classifier (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | Doğruluk: %79.61</div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>TEKNOLOJİ VE HİZMET (40 Firma)</strong></td>
+                                                    <td>
+                                                        <span class="algo-tag algo-lgb">LightGBM Regressor (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | R² Skoru: %48.56</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-cat">CatBoost Classifier (V2)</span>
+                                                        <div class="cell-subtext">RFE: 25 Öznitelik | Doğruluk: %67.73</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-rf">Random Forest Classifier (V2)</span>
+                                                        <div class="cell-subtext">RFE: 25 Öznitelik | Doğruluk: %80.83</div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>GIDA VE TARIM (24 Firma)</strong></td>
+                                                    <td>
+                                                        <span class="algo-tag algo-et">Extra Trees Regressor (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | R² Skoru: %41.27</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-cat">CatBoost Classifier (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | Doğruluk: %69.31</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-cat">CatBoost Classifier (V2)</span>
+                                                        <div class="cell-subtext">RFE: 25 Öznitelik | Doğruluk: %79.89</div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>ENERJİ VE HAMMADDE (39 Firma)</strong></td>
+                                                    <td>
+                                                        <span class="algo-tag algo-stack">Ridge Meta Stacking (V2)</span>
+                                                        <div class="cell-subtext">
+                                                            <strong>Meta Ağırlıkları:</strong><br>
+                                                             XGBoost: %57.8 | ExtraTrees: %15.4 | LightGBM: %4.7 | CatBoost: %22.2 | RF: %0.0
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-cat">CatBoost Classifier (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | Doğruluk: %64.74</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-rf">Random Forest Classifier (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | Doğruluk: %78.85</div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+    
+    <!-- Image Lightbox Modal -->
+    <div id="image-lightbox" class="lightbox-modal">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+        <div id="lightbox-caption"></div>
+    </div>
+
+    <!-- Script Files -->
+    <script src="script.js"></script>
+</body>
+</html>

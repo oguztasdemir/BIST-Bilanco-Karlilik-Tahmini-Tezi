@@ -1,0 +1,16 @@
+================================================================================
+Adım 8: Mevsimsel Geçmiş ve Sektörel Mevsimsel Kıyas (Momentum)
+================================================================================
+
+1. BU ADIMDA NE YAPILDI?
+--------------------------------------------------------------------------------
+Firmaların geçen yılın aynı çeyreğine göre kâr değişimlerini ölçen Mevsimsel_YoY_Kar_Büyümesi özniteliği üretildi. Ayrıca firmanın geçmiş çeyreklerdeki mevsimsel ortalama performansı ile sektörün mevsimsel geçmişi kıyaslanarak Sektorel_Mevsimsel_Gorece_Kar (mevsimsel momentum) özniteliği türetildi.
+
+2. GRAFİKLER NE ANLATIYOR?
+--------------------------------------------------------------------------------
+- 8_Mevsimsel_Gecmis/8_Sektorel_Mevsimsel_YoY_Büyüme_*.png: Sektörlerin tarihsel olarak geçen yılın aynı dönemine göre ortalama yüzde kaç kâr büyümesi veya küçülmesi gerçekleştirdiğini gösterir (Pozitif kâr büyümeleri yeşil, negatifler kırmızı barlar ile gösterilir).
+- 8_Mevsimsel_Gecmis/8_Sektorel_Mevsimsel_YoY_Tablosu_*.png: Sektörlerin yıllık bazda ortalama, standart sapma, minimum ve maksimum YoY kâr büyüme oranlarını gösteren istatistik tablosudur.
+
+3. ÜRETİLEN EXCEL DOSYALARI
+--------------------------------------------------------------------------------
+8_Final_Mevsimsel_Gecmis_Sektor_Kiyaslamasi_*.xlsx

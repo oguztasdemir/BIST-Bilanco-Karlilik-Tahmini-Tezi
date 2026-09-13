@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+{% block content %}
+                <section id="tab-competitor-analysis" class="tab-pane active">
+                    <div class="predictor-tab-vertical">
+                        <div class="card form-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-scale-balanced"></i> Sektörel Rakip Analizi Filtreleri</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-row-three" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+                                    <div class="form-group">
+                                        <label for="comp-sector">Sektör</label>
+                                        <select id="comp-sector" class="form-control">
+                                            <option value="">Sektör Seçin...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="comp-company">Firma Adı</label>
+                                        <select id="comp-company" class="form-control" disabled>
+                                            <option value="">Önce Sektör Seçin...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="comp-competitor">Kıyaslanacak Rakip Firma (İsteğe Bağlı)</label>
+                                        <select id="comp-competitor" class="form-control" disabled>
+                                            <option value="">Önce Sektör Seçin...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-actions" style="margin-top: 25px;">
+                                    <button id="btn-run-comp-analysis" class="btn btn-primary" disabled>
+                                        <i class="fa-solid fa-magnifying-glass-chart"></i> RAKİP ANALİZİ YAP
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Results Card -->
+                        <div class="card output-card" id="comp-results-card" style="display: none;">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-square-poll-vertical"></i> Sektörel Pozisyon & Kıyaslama Raporu</h3>
+                            </div>
+                            <div class="card-body">
+                                <h4 id="comp-company-header" style="margin-bottom: 12px; color: var(--color-blue); font-size: 14px; text-transform: uppercase;"><i class="fa-solid fa-industry"></i> Firma Performans Özetleri</h4>
+                                <div class="results-metadata-grid" style="margin-bottom: 12px;">
+                                    <div class="meta-card">
+                                        <span id="comp-avg-rank-title">Sektör Büyüklük Sıralaması</span>
+                                        <strong id="comp-avg-rank-text">-</strong>
+                                    </div>
+                                    <div class="meta-card">
+                                        <span id="comp-best-rank-title">En İyi Sıralama</span>
+                                        <strong id="comp-best-rank-text">-</strong>
+                                    </div>
+                                    <div class="meta-card">
+                                        <span id="comp-worst-rank-title">En Kötü Sıralama</span>
+                                        <strong id="comp-worst-rank-text">-</strong>
+                                    </div>
+                                </div>
+
+                                <div class="company-stats-detail" id="company-extra-stats" style="margin-top: 10px; margin-bottom: 25px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+                                    <div class="stat-badge-card" style="background: rgba(255, 255, 255, 0.02); padding: 10px 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
+                                        <div style="font-size: 11px; color: #94a3b8; margin-bottom: 4px;"><i class="fa-solid fa-chart-pie" style="color: var(--color-green); margin-right: 4px;"></i> Kâr / Zarar Çeyrekleri</div>
+                                        <strong id="company-profit-loss-ratio" style="font-size: 14px; color: #e2e8f0;">- / -</strong>
+                                    </div>
+                                    <div class="stat-badge-card" style="background: rgba(255, 255, 255, 0.02); padding: 10px 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
+                                        <div style="font-size: 11px; color: #94a3b8; margin-bottom: 4px;"><i class="fa-solid fa-arrow-up-right-dots" style="color: var(--color-blue); margin-right: 4px;"></i> Sektör Ortalamasını Geçme</div>
+                                        <strong id="company-above-avg-ratio" style="font-size: 14px; color: #e2e8f0;">- / -</strong>
+                                    </div>
+                                    <div class="stat-badge-card" style="background: rgba(255, 255, 255, 0.02); padding: 10px 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
+                                        <div style="font-size: 11px; color: #94a3b8; margin-bottom: 4px;"><i class="fa-solid fa-arrow-trend-up" style="color: #00f27c; margin-right: 4px;"></i> Sektör Medyanını Geçme</div>
+                                        <strong id="company-above-median-ratio" style="font-size: 14px; color: #e2e8f0;">- / -</strong>
+                                    </div>
+                                </div>
+
+                                <div id="competitor-meta-section" style="display: none; margin-top: 15px;">
+                                    <h4 id="comp-competitor-header" style="margin-bottom: 12px; color: #a855f7; font-size: 14px; text-transform: uppercase;"><i class="fa-solid fa-shield-halved"></i> Rakip Performans Özetleri</h4>
+                                    <div class="results-metadata-grid" style="margin-bottom: 12px;">
+                                        <div class="meta-card" style="border-left: 3px solid #a855f7;">
+                                            <span id="comp-competitor-avg-rank-title">Rakip Sıralaması</span>
+                                            <strong id="comp-competitor-avg-rank-text">-</strong>
+                                        </div>
+                                        <div class="meta-card" style="border-left: 3px solid #a855f7;">
+                                            <span id="comp-competitor-best-rank-title">Rakip En İyi Sıralama</span>
+                                            <strong id="comp-competitor-best-rank-text">-</strong>
+                                        </div>
+                                        <div class="meta-card" style="border-left: 3px solid #a855f7;">
+                                            <span id="comp-competitor-worst-rank-title">Rakip En Kötü Sıralama</span>
+                                            <strong id="comp-competitor-worst-rank-text">-</strong>
+                                        </div>
+                                    </div>
+                                    <div class="competitor-stats-detail" id="competitor-extra-stats" style="margin-top: 10px; margin-bottom: 25px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+                                        <div class="stat-badge-card" style="background: rgba(255, 255, 255, 0.02); padding: 10px 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); text-align: center; border-left: 3px solid #a855f7;">
+                                            <div style="font-size: 11px; color: #94a3b8; margin-bottom: 4px;"><i class="fa-solid fa-chart-pie" style="color: var(--color-green); margin-right: 4px;"></i> Kâr / Zarar Çeyrekleri</div>
+                                            <strong id="competitor-profit-loss-ratio" style="font-size: 14px; color: #e2e8f0;">- / -</strong>
+                                        </div>
+                                        <div class="stat-badge-card" style="background: rgba(255, 255, 255, 0.02); padding: 10px 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); text-align: center; border-left: 3px solid #a855f7;">
+                                            <div style="font-size: 11px; color: #94a3b8; margin-bottom: 4px;"><i class="fa-solid fa-arrow-up-right-dots" style="color: var(--color-blue); margin-right: 4px;"></i> Sektör Ortalamasını Geçme</div>
+                                            <strong id="competitor-above-avg-ratio" style="font-size: 14px; color: #e2e8f0;">- / -</strong>
+                                        </div>
+                                        <div class="stat-badge-card" style="background: rgba(255, 255, 255, 0.02); padding: 10px 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); text-align: center; border-left: 3px solid #a855f7;">
+                                            <div style="font-size: 11px; color: #94a3b8; margin-bottom: 4px;"><i class="fa-solid fa-arrow-trend-up" style="color: #00f27c; margin-right: 4px;"></i> Sektör Medyanını Geçme</div>
+                                            <strong id="competitor-above-median-ratio" style="font-size: 14px; color: #e2e8f0;">- / -</strong>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="comp-narrative-box" class="comment-box" style="display: block; margin-top: 15px; border-left: 3px solid var(--color-blue); background: rgba(59, 130, 246, 0.05); padding: 15px; border-radius: 4px;">
+                                    <h4 style="margin-bottom: 8px; color: var(--color-blue);"><i class="fa-solid fa-circle-info"></i> Sektörel Analiz Yorumu</h4>
+                                    <p id="comp-narrative-text" style="font-size: 13px; line-height: 1.6; color: #e2e8f0;"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Middle Panel: Interactive Line Chart -->
+                        <div class="card chart-card" id="comp-chart-card" style="display: none; margin-top: 25px; width: 100%; min-height: auto; height: 420px;">
+                            <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                                <h3><i class="fa-solid fa-chart-line"></i> Kârlılık ve Rekabet Trend Kıyaslaması</h3>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <!-- Toggle Buttons -->
+                                    <div class="btn-group" role="group" style="display: inline-flex; background: rgba(30, 41, 59, 0.8); padding: 3px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.08);">
+                                        <button type="button" id="btn-chart-mode-value" class="btn btn-sm btn-chart-toggle" style="background: var(--color-blue); color: #fff; border: none; padding: 4px 12px; font-size: 11px; font-weight: 600; border-radius: 4px; cursor: pointer; transition: all 0.2s;">
+                                            Kâr Tutarları
+                                        </button>
+                                        <button type="button" id="btn-chart-mode-rank" class="btn btn-sm btn-chart-toggle" style="background: transparent; color: #94a3b8; border: none; padding: 4px 12px; font-size: 11px; font-weight: 600; border-radius: 4px; cursor: pointer; transition: all 0.2s;">
+                                            Sektörel Sıralama
+                                        </button>
+                                    </div>
+                                    <button type="button" id="btn-reset-zoom" class="btn btn-sm" style="background: rgba(255, 255, 255, 0.05); color: #94a3b8; border: 1px solid rgba(255,255,255,0.08); padding: 4px 10px; font-size: 11px; font-weight: 600; border-radius: 6px; cursor: pointer; transition: all 0.2s;">
+                                        <i class="fa-solid fa-arrows-rotate"></i> Zoom Sıfırla
+                                    </button>
+                                    <span style="font-size: 11px; color: #94a3b8; background: rgba(30, 41, 59, 0.6); padding: 5px 10px; border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.05);">
+                                        <i class="fa-solid fa-circle-info" style="color: var(--color-blue); margin-right: 4px;"></i> Kıyaslama <strong>Net Dönem Kârı</strong> cinsindendir. Noktalara tıklayıp detay görebilirsiniz.
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="card-body chart-body" style="height: 340px;">
+                                <div class="canvas-container" style="position: relative; height: 100%; width: 100%;">
+                                    <canvas id="comp-rank-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Panel: Comprehensive Period-by-Period Table -->
+                        <div class="card table-card" id="comp-table-card" style="display: none; margin-top: 25px;">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-table-list"></i> Çeyreklik Karşılaştırma Detayları</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="responsive-table-container" style="max-height: 500px; overflow-y: auto; overflow-x: auto; border: 1px solid rgba(255,255,255,0.06); border-radius: 4px;">
+                                    <table class="custom-table" id="comp-period-table">
+                                        <thead>
+                                            <!-- Will be dynamically populated in script.js -->
+                                        </thead>
+                                        <tbody>
+                                            <!-- Dynamically loaded -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Period Details Modal -->
+                        <div id="period-detail-modal" class="custom-modal" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(15, 21, 36, 0.85); backdrop-filter: blur(8px); align-items: center; justify-content: center;">
+                            <div class="modal-content" style="background: #0f172a; border: 1px solid rgba(255,255,255,0.08); width: 95%; max-width: 600px; padding: 25px; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5); position: relative; margin: 10% auto;">
+                                <span class="close-modal" id="close-period-modal" style="position: absolute; right: 20px; top: 15px; font-size: 24px; color: #94a3b8; cursor: pointer; transition: color 0.2s;">&times;</span>
+                                <h3 style="margin-bottom: 20px; color: var(--color-blue); display: flex; align-items: center; gap: 10px; font-size: 18px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 10px;">
+                                    <i class="fa-solid fa-circle-info"></i> <span id="modal-period-title">Dönem Detayları</span>
+                                </h3>
+                                <div class="modal-body-content" style="color: #e2e8f0; font-size: 13.5px; line-height: 1.6;">
+                                    <!-- Main Company details -->
+                                    <div style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.04);">
+                                        <h4 id="modal-company-name" style="color: #ffb300; margin-bottom: 10px; font-size: 14px;"><i class="fa-solid fa-industry"></i> Ana Firma</h4>
+                                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 20px;">
+                                            <div>Kâr / Zarar: <strong id="modal-company-value" style="color: #ffb300;">-</strong></div>
+                                            <div>Gelecek Çeyrek Tahmini: <strong id="modal-company-pred">-</strong></div>
+                                            <div>Sektörel Sıra: <strong id="modal-company-rank">-</strong></div>
+                                            <div>Sektördeki Konumu: <strong id="modal-company-pos" style="color: #38bdf8;">-</strong></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Competitor details -->
+                                    <div id="modal-competitor-section" style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.04); display: none;">
+                                        <h4 id="modal-competitor-name" style="color: #a855f7; margin-bottom: 10px; font-size: 14px;"><i class="fa-solid fa-shield-halved"></i> Rakip Firma</h4>
+                                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 20px;">
+                                            <div>Kâr / Zarar: <strong id="modal-competitor-value" style="color: #a855f7;">-</strong></div>
+                                            <div>Gelecek Çeyrek Tahmini: <strong id="modal-competitor-pred">-</strong></div>
+                                            <div>Sektörel Sıra: <strong id="modal-competitor-rank">-</strong></div>
+                                            <div>Sektördeki Konumu: <strong id="modal-competitor-pos" style="color: #c084fc;">-</strong></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Sector averages details -->
+                                    <div style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.04);">
+                                        <h4 style="color: #00d2ff; margin-bottom: 10px; font-size: 14px;"><i class="fa-solid fa-chart-bar"></i> Sektör Genel Göstergeleri</h4>
+                                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 20px;">
+                                            <div>Sektör Ortalaması: <strong id="modal-sector-avg" style="color: #00d2ff;">-</strong></div>
+                                            <div>Sektör Medyanı: <strong id="modal-sector-median" style="color: #00f27c;">-</strong></div>
+                                            <div>Sektör En Yüksek Kârı: <strong id="modal-sector-max">-</strong></div>
+                                            <div>Sektör En Düşük Kârı: <strong id="modal-sector-min">-</strong></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="text-align: right; margin-top: 20px;">
+                                    <button id="close-period-modal-btn" style="background: var(--color-blue); border: none; color: white; padding: 8px 20px; font-size: 13px; font-weight: 600; border-radius: 6px; cursor: pointer; transition: background 0.2s;">Kapat</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- TAB 6: ADMIN PANEL (Secure Database & Workflow Details) -->
+{% endblock %}

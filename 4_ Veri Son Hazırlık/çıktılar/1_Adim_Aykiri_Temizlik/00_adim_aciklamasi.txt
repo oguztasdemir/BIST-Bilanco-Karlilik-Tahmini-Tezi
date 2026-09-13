@@ -1,0 +1,17 @@
+================================================================================
+Adım 1: Aykırı Değer Winsorization (Winsorizasyon Temizliği)
+================================================================================
+
+1. BU ADIMDA NE YAPILDI?
+--------------------------------------------------------------------------------
+Finansal oranlar ve özniteliklerin en alt %1 ve en üst %99'luk dilimlerindeki aykırı (uç) değerleri, bu sınır değerlerine çekilerek (clipping/winsorize) stabilize edildi. Veri setinden satır silme işlemi yapılmaksızın uç değerlerin modelin öğrenme kalitesini bozması engellendi.
+
+2. GRAFİKLER NE ANLATIYOR?
+--------------------------------------------------------------------------------
+- 1_Aykiri_Temizlik/1_Aykiri_Sektorel_Oranlari.png: Sektör bazında her bir finansal oran özelliğinin kaç adet aykırı değer içerdiğini ve yüzde kaçlık bir anomali oranına tekabül ettiğini gösteren bar grafiğidir.
+- 1_Aykiri_Temizlik/1_Aykiri_Sektorel_Ozet_Raporu.png: Her sektör için toplam kontrol edilen hücre sayısını, etkilenen/düzeltilen aykırı hücre miktarını ve ortalama anomali oranını özet tablo olarak gösterir.
+- 1_Aykiri_Temizlik/1_Aykiri_Raporlari/*.png: Her bir sektör için finansal oran bazlı anomali oranlarını gösteren detaylı bar grafikleridir.
+
+3. ÜRETİLEN EXCEL DOSYALARI
+--------------------------------------------------------------------------------
+1_Aykiri_Temiz_Veri_*.xlsx ve 1_Aykiri_Deger_Raporu_*.xlsx

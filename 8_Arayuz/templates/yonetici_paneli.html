@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+{% block content %}
+                <section id="tab-admin" class="tab-pane active">
+                    <!-- Secure Lock Screen -->
+                    <div id="admin-lock-screen">
+                        <div class="admin-login-container">
+                            <div class="admin-login-card">
+                                <div class="lock-icon-lg"><i class="fa-solid fa-lock"></i></div>
+                                <h3>Yönetici Girişi</h3>
+                                <p>Veri mimarisi ve eğitim metodolojisi detayları için kimlik bilgilerinizi giriniz.</p>
+                                <div id="admin-login-error" style="display: none; color: #ef4444; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); padding: 10px; border-radius: 8px; font-size: 13px; margin-bottom: 20px;">
+                                    Kullanıcı adı veya şifre hatalı!
+                                </div>
+                                <div class="form-group">
+                                    <label for="admin-username">Kullanıcı Adı</label>
+                                    <input type="text" id="admin-username" placeholder="Kullanıcı adınızı girin...">
+                                </div>
+                                <div class="form-group">
+                                    <label for="admin-password">Şifre</label>
+                                    <input type="password" id="admin-password" placeholder="Şifrenizi girin...">
+                                </div>
+                                <button type="button" id="btn-admin-login" class="btn btn-primary" style="margin-top: 10px; width: 100%;">
+                                    GİRİŞ YAP
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Secure Authenticated Dashboard Content -->
+                    <div id="admin-secure-content" style="display: none;">
+                        <div class="admin-dashboard">
+                            <div class="admin-header">
+                                <h3><i class="fa-solid fa-screwdriver-wrench" style="color: var(--color-gold);"></i> BIST AI Sistem Mimarisi & Veri Yönetimi</h3>
+                                <button id="btn-admin-logout" class="btn btn-primary" style="width: auto; padding: 8px 16px; font-size: 12px; height: 36px; border-radius: 8px; background: #ef4444; box-shadow: none;">Güvenli Çıkış</button>
+                            </div>
+
+                            <!-- Summary metrics -->
+                            <div class="admin-summary-grid">
+                                <div class="admin-stat-card">
+                                    <div class="admin-stat-icon blue"><i class="fa-solid fa-database"></i></div>
+                                    <div class="admin-stat-info">
+                                        <h4>Toplam Veri Kapsamı</h4>
+                                        <span>7 Sektör / 376 Şirket</span>
+                                    </div>
+                                </div>
+                                <div class="admin-stat-card">
+                                    <div class="admin-stat-icon green"><i class="fa-solid fa-microchip"></i></div>
+                                    <div class="admin-stat-info">
+                                        <h4>Katman-0 Modelleri</h4>
+                                        <span>5 Ayrı Algoritma</span>
+                                    </div>
+                                </div>
+                                <div class="admin-stat-card">
+                                    <div class="admin-stat-icon purple"><i class="fa-solid fa-code-fork"></i></div>
+                                    <div class="admin-stat-info">
+                                        <h4>Mevcut Veri Hatları</h4>
+                                        <span>V1 & V2 (Hibrit Sentez)</span>
+                                    </div>
+                                </div>
+                                <div class="admin-stat-card">
+                                    <div class="admin-stat-icon gold"><i class="fa-solid fa-key"></i></div>
+                                    <div class="admin-stat-info">
+                                        <h4>Yetki Seviyesi</h4>
+                                        <span>Tam Erişim (Root)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="admin-workflow-grid">
+                                <!-- Comprehensive Data & Project Details -->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3><i class="fa-solid fa-file-excel"></i> Veri Tabanı Mimarisi & Öznitelik Yapısı</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="responsive-table-container">
+                                            <table class="custom-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Veri Kümesi Adı</th>
+                                                        <th>Özellik Sayısı</th>
+                                                        <th>Açıklama</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><strong>V1 Veri Seti (VIF)</strong></td>
+                                                        <td>26 Sütun</td>
+                                                        <td>Collinearity'yi (Çoklu doğrusal bağıntıyı) önlemek için Variance Inflation Factor (VIF &lt; 5.0) ile filtrelenmiş ham veri kümesi.</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>V2 Veri Seti (Scaled)</strong></td>
+                                                        <td>25 Sütun</td>
+                                                        <td>Aykırı değerlerin etkisini azaltmak için RobustScaler uygulanmış ve RFE özellik seçimi yapılmış veri kümesi.</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Zeki Eleme Çıktıları</strong></td>
+                                                        <td>21 Sütun</td>
+                                                        <td>Lagging ve anomali filtrelerinin otomatik arka plan hesaplamaları için elenmiş, ham finansal gösterge veri kümesi.</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><strong>Şampiyon Modeller</strong></td>
+                                                        <td>Model Özel</td>
+                                                        <td>V1 ve V2 veri hatlarının en başarılı tekli ve Stacking ensemble modellerini barındıran pickle nesneleri.</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Training & Stacking Methods -->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3><i class="fa-solid fa-diagram-project"></i> Stacking Ensemble Eğitim Metodolojisi</h3>
+                                    </div>
+                                    <div class="card-body" style="font-size: 13px; line-height: 1.6; color: #e2e8f0; display: flex; flex-direction: column; gap: 15px;">
+                                        <p>
+                                            V2 veri hattı üzerinde uygulanan <strong>Stacking Ensemble (Yığınlama Topluluğu)</strong> yöntemi, modellerin birbirlerinin hatalarını kompanse etmesini sağlar. Eğitim süreci şu adımlarla gerçekleştirilmiştir:
+                                        </p>
+                                        
+                                        <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);">
+                                            <strong style="color: var(--color-blue);"><i class="fa-solid fa-layer-group"></i> Katman-0 (Base Learners):</strong>
+                                            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;">
+                                                <span class="algo-tag algo-cat">CatBoost</span>
+                                                <span class="algo-tag algo-lgb">LightGBM</span>
+                                                <span class="algo-tag algo-xgb">XGBoost</span>
+                                                <span class="algo-tag algo-rf">Random Forest</span>
+                                                <span class="algo-tag algo-et">Extra Trees</span>
+                                            </div>
+                                            <p style="margin-top: 8px; font-size: 12px; color: #94a3b8;">
+                                                5 temel makine öğrenmesi algoritması, 5-Fold Cross-Validation kullanılarak eğitilmiş ve out-of-fold tahminlerden oluşan meta-veri kümesi türetilmiştir.
+                                            </p>
+                                        </div>
+
+                                        <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);">
+                                            <strong style="color: #ae52ff;"><i class="fa-solid fa-puzzle-piece"></i> Katman-1 (Meta-Learner):</strong>
+                                            <p style="margin-top: 4px; font-size: 12px; color: #e2e8f0;">
+                                                Katman-0 algoritmalarının tahminlerini nihai tahmin değerine eşleyen üst modeldir:
+                                            </p>
+                                            <ul style="margin-left: 15px; margin-top: 4px; font-size: 12px; color: #94a3b8; list-style-type: disc;">
+                                                <li><strong>Regresyon Görevleri için:</strong> Doğrusal kombinasyonu optimize eden <strong>Ridge Regression</strong>.</li>
+                                                <li><strong>Sınıflandırma Görevleri için:</strong> Olasılıkları ağırlıklandıran <strong>Logistic Regression</strong>.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sector Cell Level Training & Stacking Methods Map -->
+                            <div class="card mt-20">
+                                <div class="card-header">
+                                    <h3><i class="fa-solid fa-table-cells-large"></i> Sektörel Stacking & Model Hücre Eşleşmeleri Detayı</h3>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-subtitle-desc">Projeksiyon sisteminde V1 ve V2 veri hatlarının her bir sektörel karar hücresi için eğitilmiş olduğu yöntemlerin ve şampiyon seçilen stacking haritalaması:</p>
+                                    <div class="responsive-table-container">
+                                        <table class="custom-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Sektör</th>
+                                                    <th>Regresyon (Sayısal Tahmin) Eğitim Metodu</th>
+                                                    <th>Yön Sınıflandırma Eğitim Metodu</th>
+                                                    <th>K/Z Sınıflandırma Eğitim Metodu</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>SANAYİ VE İMALAT (125 Firma)</strong></td>
+                                                    <td>
+                                                        <span class="algo-tag algo-stack">Ridge Meta Stacking (V2)</span>
+                                                        <div class="cell-subtext">
+                                                            <strong>Meta Ağırlıkları:</strong><br>
+                                                            XGBoost: %78.4 | CatBoost: %11.2 | ExtraTrees: %8.3 | LightGBM: %2.1 | RF: %0.0
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-cat">CatBoost Classifier (V2)</span>
+                                                        <div class="cell-subtext">RFE: 25 Öznitelik | Doğruluk: %62.10</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-rf">Random Forest Classifier (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | Doğruluk: %80.60</div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>FİNANS VE YATIRIM (88 Firma)</strong></td>
+                                                    <td>
+                                                        <span class="algo-tag algo-cat">CatBoost Regressor (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | R² Skoru: %50.75</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-cat">CatBoost Classifier (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | Doğruluk: %74.68</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-rf">Random Forest Classifier (V2)</span>
+                                                        <div class="cell-subtext">RFE: 25 Öznitelik | Doğruluk: %80.09</div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>İNŞAAT VE GAYRİMENKUL (59 Firma)</strong></td>
+                                                    <td>
+                                                        <span class="algo-tag algo-stack">Ridge Meta Stacking (V2)</span>
+                                                        <div class="cell-subtext">
+                                                            <strong>Meta Ağırlıkları:</strong><br>
+                                                            XGBoost: %69.7 | CatBoost: %18.5 | ExtraTrees: %11.7 | LightGBM: %0.1 | RF: %0.0
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-xgb">XGBoost Classifier (V2)</span>
+                                                        <div class="cell-subtext">RFE: 25 Öznitelik | Doğruluk: %71.91</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-cat">CatBoost Classifier (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | Doğruluk: %76.60</div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>TİCARET VE PAZARLAMA (32 Firma)</strong></td>
+                                                    <td>
+                                                        <span class="algo-tag algo-cat">CatBoost Regressor (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | R² Skoru: %51.29</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-rf">Random Forest Classifier (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | Doğruluk: %67.84</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-rf">Random Forest Classifier (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | Doğruluk: %79.61</div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>TEKNOLOJİ VE HİZMET (40 Firma)</strong></td>
+                                                    <td>
+                                                        <span class="algo-tag algo-lgb">LightGBM Regressor (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | R² Skoru: %48.56</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-cat">CatBoost Classifier (V2)</span>
+                                                        <div class="cell-subtext">RFE: 25 Öznitelik | Doğruluk: %67.73</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-rf">Random Forest Classifier (V2)</span>
+                                                        <div class="cell-subtext">RFE: 25 Öznitelik | Doğruluk: %80.83</div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>GIDA VE TARIM (24 Firma)</strong></td>
+                                                    <td>
+                                                        <span class="algo-tag algo-et">Extra Trees Regressor (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | R² Skoru: %41.27</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-cat">CatBoost Classifier (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | Doğruluk: %69.31</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-cat">CatBoost Classifier (V2)</span>
+                                                        <div class="cell-subtext">RFE: 25 Öznitelik | Doğruluk: %79.89</div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><strong>ENERJİ VE HAMMADDE (39 Firma)</strong></td>
+                                                    <td>
+                                                        <span class="algo-tag algo-stack">Ridge Meta Stacking (V2)</span>
+                                                        <div class="cell-subtext">
+                                                            <strong>Meta Ağırlıkları:</strong><br>
+                                                             XGBoost: %57.8 | ExtraTrees: %15.4 | LightGBM: %4.7 | CatBoost: %22.2 | RF: %0.0
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-cat">CatBoost Classifier (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | Doğruluk: %64.74</div>
+                                                    </td>
+                                                    <td>
+                                                        <span class="algo-tag algo-rf">Random Forest Classifier (V1)</span>
+                                                        <div class="cell-subtext">VIF: 26 Öznitelik | Doğruluk: %78.85</div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+{% endblock %}

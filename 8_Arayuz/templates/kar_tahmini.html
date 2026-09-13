@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+                <section id="tab-predictor-reg" class="tab-pane active">
+                    <div class="trend-analysis-layout">
+                        <!-- Top Panel: Selections and Feature checkbox -->
+                        <div class="card control-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-filter"></i> Veri Filtreleme (Kâr Tahmin Regresyonu)</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-row" style="display: grid; grid-template-columns: 1.2fr 1.5fr 1.2fr auto; gap: 20px; align-items: start;">
+                                    <div class="form-group">
+                                        <label for="reg-trend-sector">Sektör</label>
+                                        <select id="reg-trend-sector" class="form-control">
+                                            <option value="">Sektör Seçin...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="reg-trend-company">Firma Adı</label>
+                                        <select id="reg-trend-company" class="form-control" disabled>
+                                            <option value="">Firma Seçin...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Para Birimi</label>
+                                        <div class="btn-group-currency" id="reg-currency-group" style="display: flex; gap: 6px; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); padding: 4px; border-radius: 8px; height: 42px; align-items: center;">
+                                            <button type="button" class="btn-currency active" data-currency="USD" style="flex: 1; border: none; background: transparent; color: #94a3b8; padding: 6px 10px; border-radius: 6px; font-weight: 500; font-size: 12px; cursor: pointer; transition: all 0.2s;">USD</button>
+                                            <button type="button" class="btn-currency" data-currency="TRY" style="flex: 1; border: none; background: transparent; color: #94a3b8; padding: 6px 10px; border-radius: 6px; font-weight: 500; font-size: 12px; cursor: pointer; transition: all 0.2s;">TRY</button>
+                                            <button type="button" class="btn-currency" data-currency="EUR" style="flex: 1; border: none; background: transparent; color: #94a3b8; padding: 6px 10px; border-radius: 6px; font-weight: 500; font-size: 12px; cursor: pointer; transition: all 0.2s;">EUR</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="margin-top: 28px;">
+                                        <label class="feature-checkbox-label" style="border: 1px solid var(--border-color); background: rgba(255,255,255,0.02); padding: 12px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 10px; user-select: none;">
+                                            <input type="checkbox" id="reg-trend-show-avg" value="true" style="cursor: pointer;">
+                                            <span>Sektör Ortalamasını Göster</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="separator" style="display: none;"></div>
+                                <div class="features-checklist-wrapper" style="display: none;">
+                                    <label><i class="fa-solid fa-list-check"></i> Grafikte Kıyaslanacak Finansal Özellik (Lütfen 1 Adet Seçiniz)</label>
+                                    <div id="reg-trend-features-list" class="features-checklist">
+                                        <div class="empty-state-small">Firma seçildiğinde özellikler listelenecektir.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Panel: Interactive Line Chart -->
+                        <div class="card chart-card">
+                            <div class="card-header">
+                                <h3><i class="fa-solid fa-chart-line"></i> Zaman Serisi Kar Tahmini ve Kıyaslama Analizi</h3>
+                            </div>
+                            <div class="card-body chart-body">
+                                <div id="reg-chart-placeholder" class="chart-placeholder">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                    <p>Grafiği çizdirmek için yukarıdan bir firma ve kıyaslanacak bir özellik seçiniz.</p>
+                                </div>
+                                <div class="canvas-container" id="reg-canvas-container" style="position: relative; height: 840px; width: 100%; display: none; resize: vertical; overflow: auto; min-height: 350px; max-height: 1500px; border-bottom: 2px dashed rgba(255, 255, 255, 0.1); padding-bottom: 8px;">
+                                    <canvas id="reg-trend-line-chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="reg-analysis-comment-box" style="display: none; margin-top: 25px; padding: 25px; background: rgba(8, 12, 20, 0.4); border: 1px solid var(--border-color); border-radius: 12px; width: 100%;">
+                        <h4 style="color: var(--color-gold); font-size: 15px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                            <i class="fa-solid fa-comment-dots" style="color: var(--color-gold);"></i> Dönem Dönem Kıyaslama &amp; Finansal Analitik Yorumu
+                        </h4>
+                        <div id="reg-analysis-comment-text" style="color: #cbd5e1; font-size: 13.5px; line-height: 1.7; max-height: 400px; overflow-y: auto; padding-right: 8px;">
+                            Yorumlar yükleniyor...
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 4: PROFITABILITY CLASSIFIER -->
+{% endblock %}

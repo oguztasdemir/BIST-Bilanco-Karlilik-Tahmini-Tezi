@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIST AI - Akıllı Finansal Kar Tahmin Portalı</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js and zoom plugins -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="/static/style.css">
+
+    <script src="/static/database.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-brain logo-icon"></i>
+                <div class="brand-text">
+                    <h1>BIST AI</h1>
+                    <span>Standalone Portal v2.0</span>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="/analiz-paneli" class="nav-item {% if active_page == 'analiz_paneli' %}active{% endif %}">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Analiz Paneli</span>
+                </a>
+                <a href="/trend-analizi" class="nav-item {% if active_page == 'trend_analizi' %}active{% endif %}">
+                    <i class="fa-solid fa-chart-area"></i>
+                    <span>Sektörel Trend Analizi</span>
+                </a>
+                <a href="/kar-tahmini" class="nav-item {% if active_page == 'kar_tahmini' %}active{% endif %}">
+                    <i class="fa-solid fa-calculator"></i>
+                    <span>Kâr Tahmini (Regresyon)</span>
+                </a>
+                <a href="/kar-zarar-siniflandirma" class="nav-item {% if active_page == 'kar_zarar_siniflandirma' %}active{% endif %}">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Kâr/Zarar Sınıflandırma</span>
+                </a>
+                <a href="/yon-siniflandirma" class="nav-item {% if active_page == 'yon_siniflandirma' %}active{% endif %}">
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+                    <span>Yön Sınıflandırma</span>
+                </a>
+                <a href="/rakip-analizi" class="nav-item {% if active_page == 'rakip_analizi' %}active{% endif %}">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                    <span>Rakip Analizi</span>
+                </a>
+                <a href="/yonetici-paneli" class="nav-item {% if active_page == 'yonetici_paneli' %}active{% endif %}">
+                    <i class="fa-solid fa-lock"></i>
+                    <span>Yönetici Paneli</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="currency-selector-container">
+                    <label for="global-currency"><i class="fa-solid fa-coins"></i> Para Birimi</label>
+                    <select id="global-currency">
+                        <option value="USD" selected>USD (Dolar)</option>
+                        <option value="EUR">EUR (Euro)</option>
+                        <option value="TRY">TRY (Türk Lirası)</option>
+                    </select>
+                </div>
+                <div class="status-indicator">
+                    <span class="dot pulse-green"></span>
+                    <span class="status-text">Bağlantı Aktif</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="page-title">
+                    <h2 id="current-tab-title">{{ tab_title }}</h2>
+                    <p id="current-tab-desc">{{ tab_desc }}</p>
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <button id="btn-toggle-right-panel" style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 8px 15px; border-radius: 8px; color: #fff; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; transition: all 0.2s;">
+                        <i class="fa-solid fa-sliders" style="color: var(--color-blue);"></i> Kontrol & Rehber
+                    </button>
+                    <div class="user-profile">
+                        <div class="profile-info">
+                            <span class="user-name">Tez Analiz Sistemi</span>
+                            <span class="user-role">Yönetici</span>
+                        </div>
+                        <div class="avatar">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- TABS CONTAINER -->
+            <div class="tab-content-container">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+
+        <!-- Right Control & Guide Panel -->
+        <aside class="right-panel" id="app-right-panel">
+            <div class="right-panel-header">
+                <h3><i class="fa-solid fa-gear"></i> Kontrol & Rehber</h3>
+                <button id="btn-close-right-panel" class="close-btn">&times;</button>
+            </div>
+            <div class="right-panel-body">
+                <!-- Sürüm & Durum -->
+                <div class="panel-section">
+                    <h4 class="section-title"><i class="fa-solid fa-circle-info"></i> Sistem Bilgileri</h4>
+                    <ul class="info-list">
+                        <li><span>Portal Sürümü:</span> <strong>v2.1 (Zeki Karar)</strong></li>
+                        <li><span>Çalışma Yapısı:</span> <strong>Stacking Ensembles</strong></li>
+                        <li><span>Öznitelik Seçimi:</span> <strong>RFE (Seçilmiş)</strong></li>
+                        <li><span>Aktif Para Birimi:</span> <strong id="right-panel-currency-indicator">USD</strong></li>
+                    </ul>
+                </div>
+
+                <!-- Uygulama Ayarları -->
+                <div class="panel-section">
+                    <h4 class="section-title"><i class="fa-solid fa-sliders"></i> Arayüz & Model Ayarları</h4>
+                    
+                    <div class="form-group-compact">
+                        <label for="right-panel-theme">Arayüz Teması</label>
+                        <select id="right-panel-theme" class="panel-select">
+                            <option value="neon-dark" selected>Neon Dark (Varsayılan)</option>
+                            <option value="ocean-blue">Okyanus Mavisi</option>
+                            <option value="slate-gray">Klasik Gri</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group-compact" style="margin-top: 8px;">
+                        <label for="right-panel-model-version">AI Karar Hassasiyeti</label>
+                        <select id="right-panel-model-version" class="panel-select">
+                            <option value="zeki_eleme">Zeki Eleme (RFE + RF + XGB)</option>
+                            <option value="tüm_öznitelikler">Tüm Öznitelikler (Standart)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group-compact" style="margin-top: 12px; display: flex; align-items: center; justify-content: space-between;">
+                        <label for="right-panel-show-avg" style="cursor: pointer; font-size: 11px;">Grafikte Sektör Ortalaması</label>
+                        <input type="checkbox" id="right-panel-show-avg" checked style="cursor: pointer; width: 16px; height: 16px;">
+                    </div>
+                </div>
+
+                <!-- Kullanım Rehberi -->
+                <div class="panel-section">
+                    <h4 class="section-title"><i class="fa-solid fa-book-open"></i> Kullanım Rehberi</h4>
+                    
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <button class="accordion-header">
+                                <span>1. Sektörel Rakip Analizi</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </button>
+                            <div class="accordion-content">
+                                <p>Sektörünüzü ve incelemek istediğiniz firmayı seçerek analizi başlatın. Çeyreklik gerçekleşen Net Dönem Kârı verilerine göre sektörel sıralamalar ve karşılaştırmalar çizilir.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <button class="accordion-header">
+                                <span>2. Kâr Tahmini (Regresyon)</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </button>
+                            <div class="accordion-content">
+                                <p>Şirketin gelecek dönem net kârını sayısal olarak tahmin eder. Giriş verilerini form üzerinden simüle ederek yeni tahminler üretebilirsiniz.</p>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <button class="accordion-header">
+                                <span>3. Kâr/Zarar Sınıflandırma (Alpha)</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </button>
+                            <div class="accordion-content">
+                                <p>Gelecek dönem kârının sektör ortalamasının üzerinde kalıp kalmayacağını (1: Başarılı / 0: Başarısız) tahmin eder.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Scorecard -->
+                <div class="panel-section">
+                    <h4 class="section-title"><i class="fa-solid fa-lightbulb"></i> AI Portföy Güven Skoru</h4>
+                    <div class="ai-scorecard-card" style="background: rgba(255, 255, 255, 0.02); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
+                        <div style="font-size: 11px; color: #94a3b8; margin-bottom: 5px;">Seçili Şirket Güven Endeksi</div>
+                        <div style="font-size: 24px; font-weight: bold; color: var(--color-green);" id="ai-score-value">%86.4</div>
+                        <p style="font-size: 10.5px; color: #94a3b8; margin-top: 5px; line-height: 1.4;">Bu skor, model tahmin başarısı, kârlılık sürekliliği ve sektörel konuma göre otomatik üretilir.</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+    
+    <!-- Image Lightbox Modal -->
+    <div id="image-lightbox" class="lightbox-modal">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+        <div id="lightbox-caption"></div>
+    </div>
+
+    <!-- Inject Active Page parameter for Javascript sideguards -->
+    <script>
+        window.activePage = "{{ active_page }}";
+    </script>
+    <!-- Script Files -->
+    <script src="/static/script.js"></script>
+</body>
+</html>

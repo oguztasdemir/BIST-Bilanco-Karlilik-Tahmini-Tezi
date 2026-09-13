@@ -1,0 +1,40 @@
+======================================================================
+      MAKİNE ÖĞRENMESİ (ML) SÜREÇ VE HAZIRLIK RAPORU
+======================================================================
+
+GENEL HAZIRLIK SKORU: %95
+DURUM: TEKNİK OLARAK %100 TEMİZ - MODELLEMEYE HAZIR
+
+----------------------------------------------------------------------
+1. ŞU ANA KADAR NELER YAPILDI? (ADIM ADIM)
+----------------------------------------------------------------------
+FAZ 1: VERİ MANİPÜLASYONU VE ÖN İŞLEME (TAMAMLANDI)
+- Sektörel veriler birleştirildi ve sütun isimleri normalize edildi.
+- Eksik veriler (NaN), sektörel medyanlar kullanılarak tamamlandı.
+- Aykırı değerler (Outliers), IQR yöntemiyle baskılandı veya temizlendi.
+- Sayısal olmayan ('object') sütunlar ID kolonları hariç elendi.
+
+FAZ 2: ÖZELLİK SEÇİMİ (FEATURE SELECTION) (TAMAMLANDI)
+Adım 1 - Varyans Filtresi: Hiç değişmeyen veya %95+ sabit kalan özellikler elendi.
+Adım 2 - Pearson Filtresi: Hedefle bağı zayıf olan ve kendi aralarında aşırı benzer özellikler elendi.
+Adım 3 - VIF Analizi: Çoklu doğrusallık (Multicollinearity) temizlenerek 'bilgi tekrarı' sıfırlandı.
+Adım 4 - Konsolidasyon: Final öznitelik sözlüğü ve döküm raporları oluşturuldu.
+
+----------------------------------------------------------------------
+2. ML READINESS (MAKİNE ÖĞRENMESİNE UYGUNLUK) DETAYLARI
+----------------------------------------------------------------------
+- EKSİK VERİ DURUMU    : %0 (Hiç yok)
+- SONSUZ VERİ DURUMU   : %0 (Hiç yok)
+- VERİ TİPİ UYGUNLUĞU  : %100 Sayısal (Float64)
+- BAĞIMSIZLIK (VIF)    : < 5.0 (Mükemmel Seviye)
+- HEDEF İLİŞKİSİ       : > 0.10 (Doğrulanmış)
+
+----------------------------------------------------------------------
+3. SONRAKİ ADIMLAR (MODELLEME ÖNCESİ YAPILACAKLAR)
+----------------------------------------------------------------------
+- Veri Ölçeklendirme (StandardScaler): Tüm rasyoları aynı boyuta getireceğiz.
+- Zaman Serisi Shifting: Tahminleme için hedef değişkeni (Kâr) bir dönem kaydıracağız.
+- Train/Test Split: Veriyi Eğitim ve Test setlerine ayıracağız.
+
+RAPOR OLUŞTURMA TARİHİ: 2026-04-21
+SÜREÇ SAHİBİ: ANTIGRAVITY AI

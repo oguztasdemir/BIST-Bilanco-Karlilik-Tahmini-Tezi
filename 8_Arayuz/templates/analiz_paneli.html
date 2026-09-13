@@ -1,0 +1,342 @@
+{% extends "base.html" %}
+{% block content %}
+                <section id="tab-dashboard" class="tab-pane active">
+                    <!-- Currency Fallback Notice Banner -->
+                    <div id="metrics-fallback-banner" class="alert-banner" style="display: none;">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span>Seçilen para birimi (<strong id="fallback-requested-curr">EUR</strong>) için akademik model karşılaştırma matrisleri hazır olmadığından, sistem otomatik olarak <strong>USD (Dolar)</strong> analiz verilerini listelemektedir.</span>
+                    </div>
+
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-icon blue"><i class="fa-solid fa-percent"></i></div>
+                            <div class="kpi-data">
+                                <h3 id="kpi-avg-wmape">%12.4</h3>
+                                <span>Ortalama Hibrit WMAPE</span>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon green"><i class="fa-solid fa-shield-halved"></i></div>
+                            <div class="kpi-data">
+                                <h3 id="kpi-avg-cls-acc">%82.3</h3>
+                                <span>Ortalama Sınıflandırma Başarısı</span>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon gold"><i class="fa-solid fa-puzzle-piece"></i></div>
+                            <div class="kpi-data">
+                                <h3 id="kpi-model-ratio">%57.1 / %42.9</h3>
+                                <span>Şampiyon Model (V2 / V1) Oranı</span>
+                            </div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-icon purple"><i class="fa-solid fa-building"></i></div>
+                            <div class="kpi-data">
+                                <h3 id="kpi-sector-count">7 Sektör</h3>
+                                <span>BIST Panel Kapsamı</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Academic/System summary description -->
+                    <div class="card intro-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-graduation-cap"></i> BIST AI Hibrit Sentez Sistemi Nedir?</h3>
+                        </div>
+                        <div class="card-body">
+                            <p style="font-size: 13.5px; line-height: 1.6; margin-bottom: 20px; color: #e2e8f0;">
+                                Bu platform, Borsa İstanbul (BIST) üzerinde faaliyet gösteren halka açık şirketlerin döviz kurlarındaki (USD, EUR, TRY) değişimlere karşı finansal duyarlılıklarını analiz etmek ve çeyrek dönem <strong>(t) net kâr/zarar performanslarını</strong> yüksek doğrulukla öngörmek amacıyla geliştirilmiş akademik bir **yapay zekâ karar destek sistemidir**.
+                            </p>
+
+                            <div class="intro-grid-container" style="display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 25px;">
+                                <!-- Scope & Aim -->
+                                <div class="intro-block">
+                                    <h4 style="color: var(--color-blue); font-size: 14px; margin-bottom: 8px;"><i class="fa-solid fa-bullseye"></i> 1. Akademik Projenin Amacı ve Kapsamı</h4>
+                                    <p style="font-size: 13px; line-height: 1.6; color: #cbd5e1;">
+                                        Halka açık şirketlerin kur riskini yönetmeleri, döviz pozisyonlarının kârlılık üzerindeki etkilerini tahmin edebilmelerinden geçer. Bu proje, kur hareketlerinin finansal bilançolar üzerindeki karmaşık ve lineer olmayan etkilerini modelleyerek, yatırımcılar ve şirket yöneticileri için otonom veri madenciliği tabanlı bilimsel bir tahmin ve karar aracı sunmayı amaçlamaktadır.
+                                     </p>
+                                </div>
+                                
+                                <!-- Methodology & Pipelines -->
+                                <div class="intro-block">
+                                    <h4 style="color: var(--color-purple); font-size: 14px; margin-bottom: 8px;"><i class="fa-solid fa-diagram-project"></i> 2. Geliştirilen Tahmin ve Veri İşleme Hatları</h4>
+                                    <p style="font-size: 13px; line-height: 1.6; color: #cbd5e1; margin-bottom: 8px;">
+                                        En optimum tahmin başarısını yakalamak adına, veri analizi aşamasında iki farklı akademik pipeline (veri hattı) kurulup kafa kafaya yarıştırılmıştır:
+                                    </p>
+                                    <ul style="margin-left: 20px; font-size: 13px; color: #cbd5e1; list-style-type: square; display: flex; flex-direction: column; gap: 6px;">
+                                        <li><strong>V1 Veri Hattı (Temel Filtreleme):</strong> Değişkenler arasında çoklu doğrusal bağlantıyı (Multicollinearity) arındırmak için <strong>VIF (Variance Inflation Factor < 5.0)</strong> algoritmasıyla öznitelik seçimi yapılmış ve ölçeklenmemiş ham verilerle modeller eğitilmiştir.</li>
+                                        <li><strong>V2 Veri Hattı (Yığınlama / Stacking Ensemble):</strong> Finansal dalgalanmalara karşı daha dayanıklı <strong>RobustScaler</strong> ölçekleme yapılmış, öznitelikler <strong>RFE (Recursive Feature Elimination)</strong> ile elenmiş ve ardından 5 güçlü makine öğrenmesi algoritması (XGBoost, LightGBM, CatBoost, Random Forest, Extra Trees) katmanlı bir <strong>Stacking Ensemble</strong> yapısıyla birleştirilerek meta-modellerle (Ridge ve Logistic Regression) eğitilmiştir.</li>
+                                        <li><strong>Yapboz (Jigsaw) Karar Matrisi:</strong> Her sektörün kendine özgü veri karakteristiğine göre (sayısal, yön ve K/Z hedefleri için) en başarılı performansı veren V1 veya V2 modelini otonom eşleyen hibrit sentezleme yaklaşımıdır.</li>
+                                    </ul>
+                                </div>
+                                
+                                <!-- Pages Walkthrough -->
+                                <div class="intro-block">
+                                    <h4 style="color: var(--color-gold); font-size: 14px; margin-bottom: 8px;"><i class="fa-solid fa-window-maximize"></i> 3. Platform Modülleri ve Sayfa İşlevleri</h4>
+                                    <p style="font-size: 13px; line-height: 1.6; color: #cbd5e1; margin-bottom: 8px;">
+                                        Web portalı, projenin tüm çıktılarını şeffaf ve anlaşılır bir şekilde sunan 4 temel bölümden oluşur:
+                                    </p>
+                                    <ul style="margin-left: 20px; font-size: 13px; color: #cbd5e1; list-style-type: circle; display: flex; flex-direction: column; gap: 6px;">
+                                        <li><strong>Analiz Paneli (Dashboard):</strong> BIST sektörlerinin hibrit Jigsaw karar matrislerinin, V1/V2 metrik karşılaştırma özetlerinin ve hata paylarının izlendiği ana akademik rapor ekranıdır.</li>
+                                        <li><strong>Sektörel Trend Analizi:</strong> Şirketlerin çeyreklik bazda seçilen döviz kurlarındaki finansal kalemlerini tarihsel bazda kıyaslayan, çoklu şirket ve kur seçimine izin veren ve kesikli referans çizgisiyle sektörel ortalamayı çizen görsel analiz aracıdır.</li>
+                                        <li><strong>Kâr Tahmini Regresyonu:</strong> Şirketlerin gerçekleşen kâr eğrileriyle yapay zekanın (t) regresyon tahminlerini üst üste çizerek gerçek vs. tahmin doğruluğunu ve finansal özniteliklerin kâr ile korelasyonunu çift Y-eksenli grafikle gösteren sayfadır.</li>
+                                        <li><strong>Yönetici Paneli (Şifre Korumalı):</strong> Eğitimde kullanılan stacking alt yapısını, hangi hücrelerde hangi makine öğrenmesi algoritmalarının eğitildiğini, meta-model parametrelerini ve yerel `.pkb` model dosyası disk yollarını gösteren şeffaflık panelidir.</li>
+                                    </ul>
+                                </div>
+
+                                <!-- Summary of Results -->
+                                <div class="intro-block">
+                                    <h4 style="color: var(--color-green); font-size: 14px; margin-bottom: 8px;"><i class="fa-solid fa-square-poll-vertical"></i> 4. Akademik Bulgular ve Genel Performans Özeti</h4>
+                                    <p style="font-size: 13px; line-height: 1.6; color: #cbd5e1;">
+                                        Bulgularımız, Stacking Ensemble (V2) mimarisinin regresyon hata paylarını (WMAPE) tekli modellere kıyasla kayda değer ölçüde düşürdüğünü kanıtlamıştır. Hibrit sentezleme yaklaşımı (Jigsaw) ise her görev için en doğru veri hattını otonom olarak seçerek genel kararlılığı maksimize etmiştir. Yapılan testlerde, <span id="summary-currency-text">USD</span> bazında kâr/zarar sınıflandırma ve yön tahmini doğruluğunda genel ortalama <strong><span id="dynamic-summary-accuracy">%79.5</span></strong> seviyelerine ulaşılmıştır.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Methodological Decision Roadmap & Dynamic Metrics -->
+                            <div class="roadmap-section">
+                                <h4 style="color: var(--color-gold); font-size: 14.5px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 8px;">
+                                    <i class="fa-solid fa-route" style="color: var(--color-gold);"></i> BIST AI Metodolojik Karar Yol Haritası (Roadmap)
+                                </h4>
+                                <p class="card-subtitle-desc" style="margin-bottom: 15px;">
+                                    Sistemimizin ham veriden otonom olarak en uygun tahmin ve karar modeline nasıl ulaştığını gösteren uçtan uca akış şeması:
+                                </p>
+
+                                <div class="roadmap-flow">
+                                    <div class="roadmap-step">
+                                        <div class="roadmap-step-header">
+                                            <div class="roadmap-step-num">1</div>
+                                            <div class="roadmap-step-title">Ön İşleme & Filtre</div>
+                                        </div>
+                                        <p class="roadmap-step-desc">
+                                            Finansal veriler sisteme yüklenir; gecikmeli öznitelikler (lagging) ve anomali dönem filtreleri arka planda otonom hesaplanır.
+                                        </p>
+                                        <div class="roadmap-step-tags">
+                                            <span class="roadmap-step-tag">Lagging</span>
+                                            <span class="roadmap-step-tag">Anomali</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="roadmap-step">
+                                        <div class="roadmap-step-header">
+                                            <div class="roadmap-step-num">2</div>
+                                            <div class="roadmap-step-title">Öznitelik Seçimi</div>
+                                        </div>
+                                        <p class="roadmap-step-desc">
+                                            Çoklu doğrusal bağlantıyı önlemek için V1 hattında VIF filtrelemesi; V2 hattında ise RobustScaler ve RFE uygulanır.
+                                        </p>
+                                        <div class="roadmap-step-tags">
+                                            <span class="roadmap-step-tag">VIF</span>
+                                            <span class="roadmap-step-tag">RFE</span>
+                                            <span class="roadmap-step-tag">Scaled</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="roadmap-step">
+                                        <div class="roadmap-step-header">
+                                            <div class="roadmap-step-num">3</div>
+                                            <div class="roadmap-step-title">Model Stacking</div>
+                                        </div>
+                                        <p class="roadmap-step-desc">
+                                            V1 tekli güçlü modellerle; V2 ise 5 adet base learner (XGB, LGBM, Cat, RF, ET) ve Ridge/Logistic meta-modellerinden oluşan Stacking ile eğitilir.
+                                        </p>
+                                        <div class="roadmap-step-tags">
+                                            <span class="roadmap-step-tag">5-Base</span>
+                                            <span class="roadmap-step-tag">Meta Ridge</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="roadmap-step">
+                                        <div class="roadmap-step-header">
+                                            <div class="roadmap-step-num">4</div>
+                                            <div class="roadmap-step-title">Yapboz Sentezi</div>
+                                        </div>
+                                        <p class="roadmap-step-desc">
+                                            Her sektörel hücre ve hedef değişken için en iyi performansı veren şampiyon (V1 veya V2) otonom seçilerek hibrit sistem kurulur.
+                                        </p>
+                                        <div class="roadmap-step-tags">
+                                            <span class="roadmap-step-tag">Yapboz</span>
+                                            <span class="roadmap-step-tag">En İyi Skor</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="insights-grid" style="margin-top: 25px;">
+                                    <!-- Panel A: Regression dynamic scores -->
+                                    <div class="insight-card">
+                                        <h5><i class="fa-solid fa-chart-bar" style="color: var(--color-blue);"></i> Akademik Sektörel Regresyon Başarıları (<span class="dynamic-currency-label">USD</span>)</h5>
+                                        <div id="dynamic-regression-bars" style="display: flex; flex-direction: column; gap: 12px;">
+                                            <div class="empty-state-small"><i class="fa-solid fa-circle-notch fa-spin"></i> Yükleniyor...</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Panel B: Global synthesis performance -->
+                                    <div class="insight-card">
+                                        <h5><i class="fa-solid fa-circle-check" style="color: var(--color-green);"></i> Hibrit Yapboz Sentez Başarı Sonuçları</h5>
+                                        <div class="insight-metric-list">
+                                            <div class="insight-metric-row">
+                                                <span>Ortalama Hibrit WMAPE Hata Oranı</span>
+                                                <span class="insight-metric-val blue" id="kpi-avg-wmape-detail">%12.40</span>
+                                            </div>
+                                            <div class="insight-metric-row">
+                                                <span>Sınıflandırma Başarısı (K/Z Accuracy)</span>
+                                                <span class="insight-metric-val green" id="kpi-avg-cls-kz-detail">%79.50</span>
+                                            </div>
+                                            <div class="insight-metric-row">
+                                                <span>Sınıflandırma Başarısı (Yön Accuracy)</span>
+                                                <span class="insight-metric-val purple" id="kpi-avg-cls-yon-detail">%68.83</span>
+                                            </div>
+                                            <div class="insight-metric-row">
+                                                <span>Şampiyon Model Dağılım Oranı (V2 Stacking / V1)</span>
+                                                <span class="insight-metric-val gold" id="kpi-model-ratio-detail">%57.14 / %42.86</span>
+                                            </div>
+                                            <div class="insight-metric-row">
+                                                <span>Toplam Analiz Edilen Halka Açık Şirket</span>
+                                                <span class="insight-metric-val" id="kpi-total-cos-detail">376 Firma</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Jigsaw Decision Matrix Table -->
+                    <div class="card table-card mt-20">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-puzzle-piece"></i> BIST Sektörel Hibrit Yapboz Karar Matrisi</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="responsive-table-container">
+                                <table class="custom-table" id="jigsaw-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Sektör</th>
+                                            <th>Reg. Sayısal Versiyon</th>
+                                            <th>Reg. Sayısal Skor (%)</th>
+                                            <th>Reg. Yön Versiyon</th>
+                                            <th>Reg. Yön Skor (%)</th>
+                                            <th>Reg. K/Z Versiyon</th>
+                                            <th>Reg. K/Z Skor (%)</th>
+                                            <th>Sınıf. Yön Versiyon</th>
+                                            <th>Sınıf. Yön Skor (%)</th>
+                                            <th>Sınıf. K/Z Versiyon</th>
+                                            <th>Sınıf. K/Z Skor (%)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="11" class="text-center">Veriler yükleniyor...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- V1 vs V2 Baseline Comparison Table -->
+                    <div class="card table-card mt-20">
+                        <div class="card-header" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.95));">
+                            <h3><i class="fa-solid fa-code-compare" style="color: var(--color-gold);"></i> V1 vs V2 Performans Karşılaştırma Özeti (Sayısal WMAPE &amp; Sınıflandırma Başarısı)</h3>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-subtitle-desc">
+                                V1 (Ölçeklemesiz, VIF tabanlı eleme) ve V2 (Ölçekli, RFE + Stacking) veri hatlarının sayısal tahmin hata paylarını (WMAPE) ve sınıflandırma doğruluk oranlarını doğrudan kıyaslayan akademik özet tablosu. En iyi performans gösteren değerler yeşil renkle vurgulanmıştır.
+                            </p>
+                            <div class="responsive-table-container">
+                                <table class="custom-table" id="comparison-summary-table">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2" style="vertical-align: middle;">Sektör</th>
+                                            <th colspan="2" class="text-center" style="border-bottom: 2px solid rgba(0, 210, 255, 0.2); padding: 6px;">Reg. Model</th>
+                                            <th colspan="2" class="text-center" style="border-bottom: 2px solid rgba(174, 82, 255, 0.2); padding: 6px;">WMAPE (%) (Düşük İyi)</th>
+                                            <th colspan="2" class="text-center" style="border-bottom: 2px solid rgba(0, 242, 124, 0.2); padding: 6px;">K/Z Sınıf. Başarısı (%)</th>
+                                            <th colspan="2" class="text-center" style="border-bottom: 2px solid rgba(255, 179, 0, 0.2); padding: 6px;">Yön Sınıf. Başarısı (%)</th>
+                                        </tr>
+                                        <tr>
+                                            <th>V1</th>
+                                            <th>V2</th>
+                                            <th>V1</th>
+                                            <th>V2</th>
+                                            <th>V1</th>
+                                            <th>V2</th>
+                                            <th>V1</th>
+                                            <th>V2</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="9" class="text-center">Yükleniyor...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side-by-side V1 and V2 Performance Tables -->
+                    <div class="metrics-tables-grid mt-20">
+                        <!-- V1 Table Card -->
+                        <div class="card table-card">
+                            <div class="card-header" style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));">
+                                <h3><i class="fa-solid fa-gears" style="color: #00d2ff;"></i> V1 Veri Hattı (VIF Özellik Seçimi)</h3>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-subtitle-desc">Ölçeklemesiz ham veriler ve Çoklu Doğrusal Bağlantı (VIF &lt; 5.0) tabanlı özellik elenmesi ile eğitilen temel modeller.</p>
+                                <div class="responsive-table-container">
+                                    <table class="custom-table" id="v1-metrics-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Sektör</th>
+                                                <th>Reg. Model</th>
+                                                <th>WMAPE (%)</th>
+                                                <th>K/Z Model</th>
+                                                <th>K/Z Acc (%)</th>
+                                                <th>Yön Model</th>
+                                                <th>Yön Acc (%)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="7" class="text-center">Yükleniyor...</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- V2 Table Card -->
+                        <div class="card table-card">
+                            <div class="card-header" style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));">
+                                <h3><i class="fa-solid fa-layer-group" style="color: #ae52ff;"></i> V2 Veri Hattı (RFE + Stacking Ensemble)</h3>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-subtitle-desc">RobustScaler ölçeklemeli veriler, RFE özellik seçimi ve çoklu model tahminini harmanlayan Stacking meta-modelleme.</p>
+                                <div class="responsive-table-container">
+                                    <table class="custom-table" id="v2-metrics-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Sektör</th>
+                                                <th>Reg. Model</th>
+                                                <th>WMAPE (%)</th>
+                                                <th>K/Z Model</th>
+                                                <th>K/Z Acc (%)</th>
+                                                <th>Yön Model</th>
+                                                <th>Yön Acc (%)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="7" class="text-center">Yükleniyor...</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 2: SECTORAL TREND ANALYSIS (Interactive Line Charts) -->
+{% endblock %}

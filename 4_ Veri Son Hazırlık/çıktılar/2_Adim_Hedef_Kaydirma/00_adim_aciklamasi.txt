@@ -1,0 +1,16 @@
+================================================================================
+Adım 2: Hedef Değişken Kaydırma (Shift t+1)
+================================================================================
+
+1. BU ADIMDA NE YAPILDI?
+--------------------------------------------------------------------------------
+Makine öğrenmesi regresyon modellerinin sonraki dönem kârını tahmin edebilmesi amacıyla, her firmanın t dönemindeki satırına, bir sonraki çeyrek dönemdeki (t+1) Net Dönem Kârı/Zararı değeri hedef değişken olarak eklendi. Dönemler arasındaki takvimsel süreklilik ve firma bazında kaydırma tutarlılığı korundu.
+
+2. GRAFİKLER NE ANLATIYOR?
+--------------------------------------------------------------------------------
+- 2_Hedef_Kaydirma/2_Hedef_Kaydirma_Uyum_Grafigi_*.png: Sektörlere göre başarılı hedef eşleşmesi sağlayan geçerli gözlemler ile gelecek çeyrek verisi olmadığı için elenen son çeyrek satırlarını karşılaştırmalı bar grafiği olarak gösterir.
+- 2_Hedef_Kaydirma/2_Hedef_Kaydirma_Durum_Raporu_*.png: Kaydırma işlemi sonrasındaki geçerli ve kayıp gözlem adetlerini sektörel bazda detaylandıran özet istatistik tablosudur.
+
+3. ÜRETİLEN EXCEL DOSYALARI
+--------------------------------------------------------------------------------
+2_Hedef_Kaydirilmis_Veri_*.xlsx

@@ -1,0 +1,16 @@
+================================================================================
+Adım 7: Cari Dönem Sektörel Görece Durum (Normalizasyon)
+================================================================================
+
+1. BU ADIMDA NE YAPILDI?
+--------------------------------------------------------------------------------
+Cari dönemdeki kâr performansını sektörel bazda standartlaştırmak için medyan ve çeyrekler arası açıklık (IQR) kullanılarak Sektorel_Cari_Z_Skoru özniteliği üretildi. Ayrıca Leave-One-Out yöntemiyle cari döneme ait sektörel görece kâr oranları hesaplandı. Böylece sektörler arasındaki ölçek farkları arındırıldı.
+
+2. GRAFİKLER NE ANLATIYOR?
+--------------------------------------------------------------------------------
+- 7_Cari_Sektor/7_Sektorel_Z_Skor_Dagilimi_*.png: Sektör bazında normalize edilmiş cari kâr dağılımlarını kutu grafiği (Boxplot) olarak gösterir. Sektörler arasındaki Z-skorunun sıfır etrafındaki dengesini ve aykırı durumların yayılımını raporlar.
+- 7_Cari_Sektor/7_Sektorel_Z_Skor_İstatistik_Tablosu_*.png: Her sektör için Z-skoru minimum, maksimum, medyan ve çeyreklik kartil değerlerini gösteren detaylı betimsel istatistik tablosudur.
+
+3. ÜRETİLEN EXCEL DOSYALARI
+--------------------------------------------------------------------------------
+7_Final_Cari_Donem_Sektor_Kiyaslamasi_*.xlsx

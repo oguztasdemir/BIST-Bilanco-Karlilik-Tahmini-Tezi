@@ -1,0 +1,16 @@
+================================================================================
+Adım 9: Sektörel Akran Kıyaslama (Hedef Sınıflandırma Değişkeni)
+================================================================================
+
+1. BU ADIMDA NE YAPILDI?
+--------------------------------------------------------------------------------
+İlgili çeyrek dönemde şirketin net kârının sektör medyanından büyük olup olmadığı kıyaslanarak ikili (binary) sınıflandırma hedef değişkeni (Sektör Üstü Performans Gerçek) türetildi. Bu adım sonucunda veri kümesinin genel özet istatistiklerini içeren bir kapak sayfası ve bağımsız özet raporları oluşturuldu.
+
+2. GRAFİKLER NE ANLATIYOR?
+--------------------------------------------------------------------------------
+- 9_Akran_Kiyas/9_Akran_Performans_Dagilimi_*.png: Sektör bazında hedef değişken sınıflarının dağılımını gösterir. Grafik, barların neredeyse tamamen eşit yükseklikte çıkmasıyla (%50-%50) makine öğrenmesi için mükemmel bir sınıf dengesi kurulduğunu kanıtlar.
+- 9_Akran_Kiyas/9_Akran_Performans_Ozet_Tablosu_*.png: Benzersiz firma sayısı, toplam gözlem sayısı, başlangıç ve bitiş dönemleri ile akran üstü performans oranını sektörlere göre listeleyen genel veri kümesi özet tablosudur.
+
+3. ÜRETİLEN EXCEL DOSYALARI
+--------------------------------------------------------------------------------
+9_Final_Sektorel_Akran_Kiyaslama_*.xlsx ve bağımsız Veri_Kumesi_Genel_Ozeti_*.xlsx

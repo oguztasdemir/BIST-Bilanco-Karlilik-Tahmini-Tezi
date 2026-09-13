@@ -1,0 +1,104 @@
+================================================================================
+  FAZ 4: VERİ SON HAZIRLIK — MASTER ÖZETİ
+  (9 Adımlık Otonom Özellik Mühendisliği Zinciri)
+================================================================================
+
+HEDEF:
+  Ham finansal panel verisini makine öğrenmesine hazır hale getirmek.
+  Regresyon (t+1 net kâr tahmini) ve sınıflandırma (sektör üstü performans)
+  için kullanılabilir öznitelik seti oluşturmak.
+
+KAPSAM:
+  Para birimleri : USD, EUR, TRY (her biri bağımsız işlendi)
+  Sektörler      : 7 sektör (SANAYİ, FİNANS, İNŞAAT, TEKNOLOJİ, ENERJİ,
+                              GIDA, TİCARET)
+  Dönem aralığı  : 2016 Q1 – 2025 Q4 (40 çeyrek)
+
+================================================================================
+  9 ADIM — KISA ÖZET
+================================================================================
+
+  Adım 1: Aykırı Değer Winsorization
+    → %1-%99 kırpma ile uç değerler stabilize edildi. Satır silinmedi.
+    → Çıktı: 1_Aykiri_Temiz_Veri_*.xlsx
+
+  Adım 2: Hedef Değişken Kaydırma (t+1)
+    → Her firma satırına bir sonraki çeyreğin net kârı eklendi.
+    → Çıktı: 2_Hedef_Kaydirilmis_Veri_*.xlsx
+
+  Adım 3: Zeki Firma Eleme
+    → Yetersiz gözlem geçmişi olan firmalar optimal eşik ile elendi.
+    → Çıktı: 3_Final_Filtreli_Veri_*.xlsx
+
+  Adım 4: Tarihsel Anomali Entegrasyonu
+    → Ekonomik şok dönemleri (Covid, kur krizi vb.) veri setine eklendi.
+    → Çıktı: 4_Final_Anomali_Entegre_Veri_*.xlsx
+
+  Adım 5: Mevsimsellik Entegrasyonu
+    → Çeyreklik mevsim kodu (Q1-Q4) eklendi.
+    → Çıktı: 5_Final_Mevsimsellik_Entegre_Veri_*.xlsx
+
+  Adım 6: Kümülatif Kâr & Sektör Kıyaslaması
+    → Expanding cumsum + LOO sektör kıyaslaması ile büyüklük öznitelikleri türetildi.
+    → Çıktı: 6_Final_Kumulatif_Sektor_Kiyaslamasi_*.xlsx
+
+  Adım 7: Cari Dönem Sektörel Görece Durum
+    → IQR tabanlı Z-skor + LOO cari dönem sektör oranı türetildi.
+    → Çıktı: 7_Final_Cari_Donem_Sektor_Kiyaslamasi_*.xlsx
+
+  Adım 8: Mevsimsel Geçmiş & Sektörel Kıyas
+    → YoY büyüme oranı + LOO mevsimsel sektör kıyaslaması türetildi.
+    → Çıktı: 8_Final_Mevsimsel_Gecmis_Sektor_Kiyaslamasi_*.xlsx
+
+  Adım 9: Sektörel Akran Kıyaslama (Hedef)
+    → İkili sınıflandırma hedefi: Sektör medyanı üstü performans bayrağı türetildi.
+    → Çıktı: 9_Final_Sektorel_Akran_Kiyaslama_*.xlsx
+
+================================================================================
+  TÜRETİLEN ÖZNİTELİKLER (12 Yeni Sütun)
+================================================================================
+
+  Öznitelik Adı                              Adım     Açıklama                                                      
+  --------------------------------------------------------------------------------------------------------------------
+  Anomali_Durumu                             Adım 4   Makroekonomik şok dönemlerini işaretleyen ikili bayrak (0=normal, 1=anomali)
+  Mevsimsellik                               Adım 5   Çeyreklik dönem kodu: Q1=1, Q2=2, Q3=3, Q4=4
+  Firma_Kum_Kar                              Adım 6   Firmanın o ana kadar biriktirdiği kümülatif net kârı (expanding sum)
+  Sektor_Kum_Kar_Ortalama                    Adım 6   Leave-One-Out sektör kümülatif kâr ortalaması (veri sızıntısı önlendi)
+  Sektorel_Kumulatif_Gorece_Kar              Adım 6   Firma kümülatif kârının sektör ortalamasına oranı (büyüklük göstergesi)
+  Sektorel_Cari_Z_Skoru                      Adım 7   Cari dönem kârının sektör içinde normalleştirilmiş Z-skoru (IQR bazlı)
+  Sektorel_Cari_Gorece_Kar                   Adım 7   Firma cari kârının LOO sektör medyanına oranı
+  Mevsimsel_YoY_Kar_Büyümesi                 Adım 8   Geçen yılın aynı çeyreğine göre kâr büyüme oranı (Year-over-Year)
+  Mevsimsel_Sektor_YoY_Ortalamasi            Adım 8   LOO sektörel mevsimsel YoY ortalaması
+  Sektorel_Mevsimsel_Gorece_Kar              Adım 8   Firmanın mevsimsel YoY büyümesinin sektör ortalamasına oranı
+  Sektör Üstü Performans Gerçek              Adım 9   İkili hedef değişken: Firma kârı > sektör medyanı ise 1, değilse 0
+  Net Dönem Karı (t+1)                       Adım 2   Regresyon hedef değişkeni: Bir sonraki çeyreğin net kârı
+
+================================================================================
+  GÖRSEL KLASÖR YAPISI
+================================================================================
+
+  görseller/
+  └── {USD | EUR | TRY}/
+      ├── 1_Aykiri_Temizlik/      (2 PNG + alt klasör)
+      ├── 2_Hedef_Kaydirma/       (2 PNG)
+      ├── 3_Zeki_Eleme/           (2 PNG)
+      ├── 4_Anomali/              (2 PNG)
+      ├── 5_Mevsimsellik/         (2 PNG)
+      ├── 6_Kumulatif_Kar/        (2 PNG)
+      ├── 7_Cari_Sektor/          (2 PNG)
+      ├── 8_Mevsimsel_Gecmis/     (2 PNG)
+      └── 9_Akran_Kiyas/          (2 PNG)
+
+  Her adım için: 1 grafik görseli + 1 sektörel tablo görseli = 2 PNG
+
+================================================================================
+  NOT
+================================================================================
+
+  Tüm sektörel kıyaslamalar Leave-One-Out (LOO) yöntemiyle yapılmıştır.
+  Bu yöntemde firmanın kendi değeri, sektör ortalaması/medyanı hesaplanırken
+  dışarıda bırakılır. Böylece veri sızıntısı (data leakage) önlenir.
+
+  Winsorization, firma eleme ve hedef kaydırma adımları modelin öğrenme
+  kalitesini artırmak için uygulanmış ön işleme adımlarıdır. Hiçbir adımda
+  keyfi veri silme yapılmamıştır.

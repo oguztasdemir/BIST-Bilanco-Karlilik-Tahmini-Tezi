@@ -1,0 +1,16 @@
+================================================================================
+Adım 5: Mevsimsellik Entegrasyonu
+================================================================================
+
+1. BU ADIMDA NE YAPILDI?
+--------------------------------------------------------------------------------
+Şirketlerin bilançolarındaki çeyreklik mevsimsel döngüleri (Q1, Q2, Q3, Q4) yakalamak amacıyla 1'den 4'e kadar mevsimsellik kodları (Mevsimsellik) veri setine eklendi. This sayede yıl sonu bilanço kapanış kârları ile diğer çeyrekler ayırt edilebilir hale geldi.
+
+2. GRAFİKLER NE ANLATIYOR?
+--------------------------------------------------------------------------------
+- 5_Mevsimsellik/5_Mevsimsel_Dagilim_*.png: Sektör bazında her bir çeyrek döneme (Q1-Q4) düşen gözlem sayılarını karşılaştırarak, veri setinin mevsimler arasında dengeli ve homojen bir dağılıma sahip olup olmadığını doğrular.
+- 5_Mevsimsellik/5_Mevsimsel_Tablo_*.png: Sektör ve çeyrek bazında gözlem sayılarını detaylı olarak veren pivot dağılım tablosudur.
+
+3. ÜRETİLEN EXCEL DOSYALARI
+--------------------------------------------------------------------------------
+5_Final_Mevsimsellik_Entegre_Veri_*.xlsx

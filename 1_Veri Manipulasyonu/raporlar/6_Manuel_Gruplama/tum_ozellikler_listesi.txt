@@ -1,0 +1,480 @@
+(ARA TOPLAM) 1
+(ARA TOPLAM) 2
+(Ara Toplam) 1
+(Ara Toplam) 2
+(Esas Faaliyet Dışı) Finansal Gelirler
+(Esas Faaliyet Dışı) Finansal Giderler (-)
+AZINLIK PAYLARI
+Alım Satım Amaçlı Finansal Varlıklar
+Alınan Depozito ve Teminatlar
+Alınan Krediler
+Alınan Çekler
+Alınan Ücret ve Komisyonlar
+Amortisman
+Amortisman Giderleri (-)
+Amortisman, İtfa Payları ve Değer Düşüklüğü Testlerinin Etkileri (-)
+Ana Ortaklık Payları
+Ana Ortaklığa Ait Özkaynaklar
+Arazi, Arsa ile Binalardan Elde Edilen Gelirler
+Araştırma ve Geliştirme Giderleri
+Araştırma ve Geliştirme Giderleri (-)
+Azınlık Payları
+Azınlık Payları Karı (Zararı)
+Azınlık Payı
+BRÜT FAALİYET KARI
+BRÜT FAALİYET KARI (ZARARI)
+BRÜT FAALİYET KARI (ZARARI))
+BRÜT KAR (ZARAR)
+BRÜT KAR (ZARAR))
+Banka Garantili ve Üç Aydan Kısa Vadeli Kredi Kartı Alacakları
+Bankalar
+Bankalardan Alınan Faizler
+Bağlı Menkul Kıymetler
+Bağlı Ortaklıklar (Net)
+Bağlı Ortaklıklar ve Müşterek Yönetime Tabi Teşebbüslerden Gelirler
+Beklenen Zarar Karşılıkları (-)
+Beklenen Zarar Karşılıkları / Özel Karşılıklar (-)
+Beklenen Zarar Karşılıkları Giderleri (-)
+Birikmiş Amortismanlar (-)
+Birikmiş İtfalar (Amortismanlar) (-)
+Birleşme Denkleştirme Hesabı
+Birleşme İşlemi Sonrasında Gelir Olarak Kaydedilen Fazlalık Tutarı
+Birlikte Kontrol Edilen Ortaklıklar (İş Ortaklıkları) (Net)
+Bonolar
+Brüt Diğer Teknik Gelirler (+/-)
+Brüt Diğer Teknik Gelirlerde Reasürör Payı (+/-)
+Brüt Diğer Teknik Giderler (-)
+Brüt Diğer Teknik Giderlerde Reasürör Payı (+)
+Brüt Kar (Zarar)
+Brüt Yazılan Primler (+)
+Brüt Ödenen Tazminatlar (-)
+CARİ OLMAYAN VARLIKLAR
+CARİ OLMAYAN VARLIKLAR TOPLAMI
+CARİ VARLIKLAR
+CARİ VARLIKLAR TOPLAMI
+Canlı Varlıklar
+Canlı Varlıklar Gerçeğe Uygun Değer Farkları
+Cari Dönem Vergi Varlığı
+Cari Dönem Vergisiyle İlgili Borçlar
+Cari Dönem Vergisiyle İlgili Duran Varlıklar
+Cari Dönem Vergisiyle İlgili Varlıklar
+Cari Dönem Vergisiyle İlgili Yükümlülükler
+Cari Vergi Borcu
+Cari Vergi Karşılığı
+Cari Vergi Varlığı
+Demirbaş ve Tesisatlar
+Devam Eden Riskler Karşılığı (-)
+Devam Eden Riskler Karşılığı - Net
+Devam Eden Riskler Karşılığında Değişim (Reasürör Payı ve Devreden Kısım Düşülmüş Olarak) (+/-)
+Devam Eden Riskler Karşılığında Reasürör Payı (+)
+Devlet Teşvik ve Yardımları
+Diğer Aktifler
+Diğer Aktifler (Net)
+Diğer Alacaklar
+Diğer Borçlar
+Diğer Cari Varlıklar
+Diğer Duran Varlıklar
+Diğer Dönen Varlıklar
+Diğer Esas Faaliyetlerden Borçlar
+Diğer Esas Faaliyetlerden Borçlar Borç Senetleri Reeskontu (-)
+Diğer Faaliyet Gelirleri
+Diğer Faaliyet Giderleri (-)
+Diğer Faaliyetlerden Ve Olağandışı Faaliyetlerden Gelir Ve Karlar İle Gider Ve Zararlar (+/-)
+Diğer Faiz Gelirleri
+Diğer Faiz Giderleri
+Diğer Finansal Borçlar
+Diğer Finansal Gelir/Gideri
+Diğer Finansal Olmayan Varlıklar
+Diğer Finansal Varlıklar
+Diğer Finansal Yükümlülükler
+Diğer Gelir ve Karlar
+Diğer Gider ve Zararlar (-)
+Diğer Kapsamlı Gelir
+Diğer Karşılık Giderleri (-)
+Diğer Kazançlar (Kayıplar)
+Diğer Kısa Vadeli Yükümlülükler
+Diğer Maddi Olmayan Varlıklar
+Diğer Maddi Varlıklar, Özel Maliyet Bedelleri Dahil
+Diğer Nakit ve Nakit Benzeri Varlıklar
+Diğer Risklere İlişkin Karşılıklar
+Diğer Teknik Gelirler (Reasürör Payı Düşülmüş Olarak) (+/-)
+Diğer Teknik Giderler (-)
+Diğer Teknik Karşılıklar - Net
+Diğer Teknik Karşılıklarda Değişim (Reasürör Payı ve Devreden Kısım Düşülmüş Olarak) (+/-)
+Diğer Uzun Vadeli Finansal Borçlar
+Diğer Uzun Vadeli Ticari Borçlar
+Diğer Uzun Vadeli Yükümlülükler
+Diğer Vergi ve Benzeri Yükümlülük Karşılıkları
+Diğer Yatırım Giderleri (-)
+Diğer Yatırımlar
+Diğer Yedekler
+Diğer Yükümlülükler
+Diğer Yükümlülükler Ve Karşılıkları
+Diğer Çeşitli Borçlar
+Diğer Çeşitli Borçlar Reeskontu (-)
+Diğer Çeşitli Cari Varlıklar
+Diğer Özkaynak Payları
+Donuk Alacaklar
+Donuk Finansal Varlıklar
+Durdurulan Faaliyetler Dönem Karı/Zararı
+Durdurulan Faaliyetler Dönem Net Karı (Zararı)
+DÖNEM KARI (ZARARI)
+DÖNEM NET KARI (ZARARI)
+DÖNEM NET KARI VEYA ZARARI
+Dönem Karı
+Dönem Karı (Zararı)
+Dönem Karı Vergi Yükümlülüğü
+Dönem Karı Vergi ve Diğer Yasal Yükümlülük Karşılıkları
+Dönem Karı Vergi ve Diğer Yasal Yükümlülük Karşılıkları (-)
+Dönem Karı veya Zararı
+Dönem Karının Peşin Ödenen Vergi ve Diğer Yükümlülükleri (-)
+Dönem Net Kar/Zararı
+Dönem Net Karı Veya Zararı
+Dönem Net Karı veya Zararı
+Dönem Net Kâr veya Zararı
+Dönem Vergi Geliri (Gideri)
+Dönem Vergi Gideri (-)
+Dönüştürülebilir Tahvil Borçları
+DİĞER CARİ OLMAYAN VARLIKLAR
+DİĞER FAALİYET GELİRLERİ
+EMEKLİLİK TEKNİK GELİR
+EMEKLİLİK TEKNİK GİDERİ
+ESAS FAALİYET GELİRLERİ
+Emeklilik Faaliyetlerinden Alacaklar
+Emeklilik Faaliyetlerinden Borçlar
+Enflasyon Düzeltmesi Hesabı (+/-)
+Ertelenmiş Gelirler
+Ertelenmiş Sigortacılık Üretim Giderleri
+Ertelenmiş Vergi Borcu
+Ertelenmiş Vergi Gelir Etkisi
+Ertelenmiş Vergi Geliri (Gideri)
+Ertelenmiş Vergi Gider Etkisi
+Ertelenmiş Vergi Varlıkları
+Ertelenmiş Vergi Varlığı
+Ertelenmiş Vergi Varlığı Hesabı (+/-)
+Ertelenmiş Vergi Yükümlülüğü
+Ertelenmiş Vergi Yükümlülüğü Gideri (-)
+Ertelenmiş Üretim Gelirleri
+Ertelenmiş Üretim Giderleri
+Esas Faaliyet Giderleri (-)
+Esas Faaliyetlerden Alacaklar
+Esas Faaliyetlerden Borçlar
+Esas Faaliyetlerden Diğer Gelirler
+Esas Faaliyetlerden Diğer Giderler (-)
+Esas Faaliyetlerden Kaynaklanan Şüpheli Alacaklar
+Esas Faaliyetlerden Kaynaklanan Şüpheli Alacaklar Karşılığı (-)
+FAALİYET BRÜT KÂRI
+FAVÖK
+FAİZ GELİRLERİ
+FAİZ GİDERLERİ (-)
+FVÖK - Esas Faaliyet Karı
+Faaliyet Giderleri (-)
+Faaliyet Karı (Zararı)
+Faaliyet Öncesi Döneme Ait Giderler
+Faiz Giderleri
+Faiz, Ücret, Prim, Komisyon ve Diğer Gelirler
+Faiz, Ücret, Prim, Komisyon ve Diğer Giderler (-)
+Faktoring Alacakları
+Faktoring Alacaklarından Alınan Faizler
+Faktoring Alacaklarından Alınan Ücret ve Komisyonlar
+Faktoring Borçları
+Faktoring Gelirleri
+Faktoring Yükümlülükleri
+Finans Sektörü Faaliyetlerinden Alacaklar
+Finans Sektörü Faaliyetlerinden Borçlar
+Finans Sektörü Faaliyetlerinden Brüt Kar (Zarar)
+Finansal Borçlar
+Finansal Kiralama Gelirleri
+Finansal Varlıklar
+Finansal Varlıklar (Net)
+Finansal Varlıklar Değer Düşüklüğü Karşılığı (-)
+Finansal Varlıklar İle Riski Sigortalılara Ait Finansal Yatırımlar
+Finansal Yatırımlar
+Finansal Yatırımlardan Elde Edilen Gelirler
+Finansal Yatırımların Değerlemesi
+Finansal Yatırımların Nakde Çevrilmesinden Elde Edilen Karlar
+Finansman Geliri (Gideri) Öncesi Faaliyet Karı (Zararı)
+Finansman Gelirleri
+Finansman Giderleri (-)
+Finansman Kredilerinden Gelirler
+Fonlar
+FİNANSAL VARLIKLAR (Net)
+GELECEK YILLARA AİT GİDERLER VE GELİR TAHAKKUKLARI
+GENEL TEKNİK BÖLÜM DENGESİ
+Gayrimenkul Projeleri Kapsamında Açılan Nakit Hesapları
+Gelecek Aylar İhtiyacı Stoklar
+Gelecek Aylara Ait Diğer Gelirler
+Gelecek Aylara Ait Diğer Giderler
+Gelecek Aylara Ait Gelirler Ve Gider Tahakkukları
+Gelecek Aylara Ait Giderler Ve Gelir Tahakkukları
+Gelecek Yıllara Ait Gelirler Ve Gider Tahakkukları
+Gelir Tahakkukları
+Genel Yönetim Giderleri (-)
+Geri Alınmış Paylar (-)
+Gerçekleşen Tazminatlar (Reasürör Payı Düşülmüş Olarak) (+/-)
+Gerçeğe Uygun Değer Farkı Diğer Kapsamlı Gelire Yansıtılan Finansal Varlıklar
+Gerçeğe Uygun Değer Farkı Diğer Kapsamlı Gelire Yansıtılan Finansal Varlıklar (Net)
+Gerçeğe Uygun Değer Farkı Diğer Kapsamlı Gelire Yansıtılan Finansal Varlıkların Gerçeğe Uygun Değer Farkı Kar veya Zarara Yansıtılan Olarak Sınıflandırılmasından Kazançlar (Kayıplar)
+Gerçeğe Uygun Değer Farkı Kar Zarara Yansıtılan Finansal Yükümlülükler
+Gerçeğe Uygun Değer Farkı Kar/Zarara Yansıtılan Finansal Varlıklar (Net)
+Gerçeğe Uygun Değer Farkı Kar/Zarara Yansıtılan Finansal Yükümlülükler
+Gerçeğe Uygun Değer Farkı Kâr Zarara Yansıtılan Finansal Varlıklar
+Geçmiş Yıllar Kar veya Zararı
+Geçmiş Yıllar Kar/Zararları
+Geçmiş Yıllar Karları
+Geçmiş Yıllar Zararları (-)
+Gider Tahahkkukları
+Grubun Karı (Zararı)
+HAYAT DIŞI TEKNİK GELİR
+HAYAT DIŞI TEKNİK GİDER (-)
+HAYAT TEKNİK GELİR
+HAYAT TEKNİK GİDER
+Haklar
+Hayat Dışı Teknik Bölümüne Aktarılan Yatırım Gelirleri (-)
+Hayat Teknik Bölümünden Aktarılan Yatırım Gelirleri
+Hedge Dahil Net Yabancı Para Pozisyonu
+Hiperenflasyon Düzeltmelerinden Elde Edilen Sonuç
+KAR PAYI GELİRİ
+KAR PAYI GİDERLERİ (-)
+KISA VADELİ YÜKÜMLÜLÜKLER
+KISA VADELİ YÜKÜMLÜLÜKLER TOPLAMI
+KREDİLER (Net)
+Kambiyo Karları
+Kambiyo Zararları (-)
+Kambiyo İşlemleri Karı (Zararı)
+Kar Yedekleri
+Kar veya Zarar
+Kar veya Zararda Yeniden Sınıflandırılacak Birikmiş Diğer Kapsamlı Gelirler (Giderler)
+Kar veya Zararda Yeniden Sınıflandırılacak Birikmiş Diğer Kapsamlı Gelirler veya Giderler
+Kar veya Zararda Yeniden Sınıflandırılmayacak Birikmiş Diğer Kapsamlı Gelirler (Giderler)
+Kar veya Zararda Yeniden Sınıflandırılmayacak Birikmiş Diğer Kapsamlı Gelirler veya Giderler
+Kardan Ayrılan Kısıtlanmış Yedekler
+Karşılık Giderleri
+Karşılıklar
+Karşılıklar Hesabı (+/-)
+Karşılıklı İştirak Sermaye Düzeltmesi (-)
+Kasa
+Kazanılmamış Primler Karşılığı (-)
+Kazanılmamış Primler Karşılığı - Net
+Kazanılmamış Primler Karşılığında Değişim (Reasürör Payı ve Devreden Kısım Düşülmüş Olarak) (+/-)
+Kazanılmamış Primler Karşılığında Reasürör Payı (+)
+Kazanılmamış Primler Karşılığında SGK Payı (+/-)
+Kazanılmış Primler (Reasürör Payı Düşülmüş Olarak)
+Kiralama Gelirleri
+Kiralama Yoluyla Edinilmiş Maddi Varlıklar
+Kiralama İşlemleri (Net)
+Kiralama İşlemlerinden Alacaklar
+Kiralama İşlemlerinden Borçlar
+Kiralama İşlemlerinden Yükümlülükler
+Kiralama İşlemlerinden Yükümlülükler (Net)
+Kontrol Gücü Olmayan Paylar
+Krediler
+Kredilerden Alınan Faizler
+Kullanılan Kredilere Verilen Faizler
+Kullanım Amaçlı Gayrimenkuller
+Kullanım Hakkı Varlıkları
+Kâr veya Zararda Yeniden Sınıflandırılacak Birikmiş Diğer Kapsamlı Gelirler veya Giderler
+Kâr veya Zararda Yeniden Sınıflandırılmayacak Birikmiş Diğer Kapsamlı Gelirler veya Giderler
+Kısa Vadeli Karşılıklar
+MADDİ DURAN VARLIKLAR (Net)
+Maddi Duran Varlıklar
+Maddi Duran Varlıklar (Net)
+Maddi Olmayan Duran Varlıklar
+Maddi Olmayan Duran Varlıklar (Net)
+Maddi Olmayan Varlıklar
+Maddi Olmayan Varlıklara İlişkin Avanslar
+Maddi Varlıklar
+Maddi Varlıklara İlişkin Avanslar, Yapılmakta Olan Yatırımlar Dahil
+Makine ve Teçhizatlar
+Matematik Karşılıklar (-)
+Matematik Karşılıklar - Net
+Matematik Karşılıklarda Değişim (Reasürör Payı ve Devreden Kısım Düşülmüş Olarak (+/-)
+Matematik Karşılıklarda Reasürör Payı (+)
+Menkul Değerlerden Alınan Faizler
+Mevduat
+Mevduata Verilen Faizler
+Motorlu Taşıtlar
+Muallak Tazminat Karşılığı - Net
+Muallak Tazminatlar Karşılığı (-)
+Muallak Tazminatlar Karşılığında Değişim (Reasürör Payı ve Devreden Kısım Düşülmüş Olarak) (+/-)
+Muallak Tazminatlar Karşılığında Reasürör Payı (+)
+Müşteri Sözleşmelerinden Doğan Varlıklar
+Müşteri Sözleşmelerinden Doğan Yükümlülükler
+NET DÖNEM KARI (ZARARI)
+NET FAALİYET KARI (ZARARI
+NET FAALİYET KARI (ZARARI)
+NET FAİZ GELİRİ VEYA GİDERİ
+NET KAR PAYI GELİRİ VEYA GİDERİ
+NET ÜCRET VE KOMİSYON GELİRLERİ VEYA GİDERLERİ
+Nakit Dışı Serbest Kullanılabilir Teminatlar
+Nakit Ve Nakit Benzeri Varlıklar
+Nakit ve Nakit Benzerleri
+Nakit, Nakit Benzerleri ve Merkez Bankası
+Net Parasal Pozisyon Karı (Zararı)
+Net Parasal Pozisyon Kazançları (Kayıpları)
+Net Ücret Komisyon Gelirleri veya Giderleri
+ORTAKLIK YATIRIMLARI
+Ortaklara Dağıtılmak Üzere Elde Tutulan Duran Varlıklar
+Ortaklara Dağıtılmak Üzere Elde Tutulan Varlık Gruplarına İlişkin Yükümlülükler
+Ortaklık Yatırımları
+PERSONEL GİDERLERİ (-)
+Para Piyasalarına Borçlar
+Para Piyasası İşlemlerinden Alınan Faizler
+Para Piyasası İşlemlerine Verilen Faizler
+Para Piyasasına Borçlar
+Pay Bazlı Ödemeler (-)
+Pay Sahiplerinin İlave Sermaye Katkıları
+Paylara İlişkin Primler (İskontolar)
+Pazarlama, Satış ve Dağıtım Giderleri (-)
+Personel Giderleri (-)
+Personele Verilen Avanslar
+Peşin Ödenen Vergiler Ve Fonlar
+Peşin Ödenmiş Giderler
+Proje Halindeki Stoklar
+Proje Halindeki Yatırım Amaçlı Gayrimenkuller
+Reasürans Faaliyetlerinden Alacaklar
+Reasürans Faaliyetlerinden Alacaklar Karşılığı (-)
+Reasürans Faaliyetlerinden Borçlar
+Reasüröre Devredilen Primler (-)
+Reeskont Hesabı (+/-)
+Risk Pozisyonlarını Netleştiren Kalemler Grubuna Yönelik Finansal Riskten Korunma Kazançları (Kayıpları)
+SATIŞ AMAÇLI ELDE TUTULAN VE DURDURULAN FAALİYETLERE İLİŞKİN DURAN VARLIKLAR (Net)
+SGK'ya Aktarılan Primler (-)
+Satılmaya Hazır Finansal Varlıklar
+Satış Amacıyla Elde Tutulan Duran Varlıklar
+Satış Amaçlı Elde Tutulan Duran Varlıklar
+Satış Amaçlı Elde Tutulan Duran Varlıklara İlişkin Yükümlülükler
+Satış Amaçlı Elde Tutulan Ve Durdurulan Faaliyetlere İlişkin Duran Varlık Borçları (Net)
+Satış Amaçlı Elde Tutulan ve Durdurulan Faaliyetlere İlişkin Duran Varlık Borçları (Net)
+Satış Amaçlı Elde Tutulan ve Durdurulan Faaliyetlere İlişkin Varlıklar (Net)
+Satış Amaçlı Sınıflandırılan Varlık Gruplarına İlişkin Yükümlülükler
+Satış Gelirleri
+Satışlar
+Satışların Maliyeti (-)
+Sermaye
+Sermaye Avansı
+Sermaye Benzeri Borçlanma Araçları
+Sermaye Düzeltme Farkları
+Sermaye Piyasası İşlemleri Karı (Zararı)
+Sermaye Yedekleri
+Sigorta Ve Reasürans Şirketleri Nezdindeki DepolarGELİRLERİ
+Sigorta Ve Reasürans Şirketlerinden Alınan Depolar
+Sigortacılık Faaliyetlerinden Alacaklar
+Sigortacılık Faaliyetlerinden Alacaklar Karşılığı (-)
+Sigortacılık Faaliyetlerinden Borçlar
+Sigortacılık Teknik Karşılıkları
+Stoklar
+SÜRDÜRÜLEN FAALİYETLER DÖNEM NET KARI (ZARARI)
+SÜRDÜRÜLEN FAALİYETLER VERGİ ÖNCESİ KARI (ZARARI)
+Sürdürülen Faaliyetler Dönem Karı/Zararı
+Sürdürülen Faaliyetler Vergi Geliri (Gideri)
+Sürdürülen Faaliyetler Vergi Karşılığı (+/-)
+Sürdürülen Faaliyetler Vergi Öncesi Karı (Zararı)
+TEKNİK BÖLÜM DENGESİ - EMEKLİLİK
+TEKNİK BÖLÜM DENGESİ - HAYAT
+TEKNİK BÖLÜM DENGESİ - HAYAT DIŞI
+TEMETTÜ GELİRLERİ
+TFRS 9 Uyarınca Belirlenen Değer Düşüklüğü Kazançları (Zararları) ve Değer Düşüklüğü Zararlarının İptalleri
+TOPLAM KAYNAKLAR
+TOPLAM KAYNKALAR
+TOPLAM VARLIKLAR
+TOPLAM YÜKÜMLÜLÜKLER VE ÖZKAYNAKLAR
+Tahakkuk Eden Rücu ve Sovtaj Gelirleri (+)
+Tahakkuk Etmiş Faiz ve Kira Gelirleri
+Tahviller
+Takipteki Alacaklar
+Tasarruf Finansman Alacakları
+Tasarruf Finansman Gelirleri
+Tasarruf Fon Havuzundan Borçlar
+Tedavi Giderlerine İlişkin SGK'ya Borçlar
+Teknik Olmayan Bölümden Aktarılan Yatırım Gelirleri
+Temettü Gelirleri
+Teminata Verilen Finansal Varlıklar
+Ticari Alacaklar
+Ticari Borçlar
+Ticari Faaliyetlerden Brüt Kar (Zarar)
+Ticari Kar veya Zarar (Net)
+Ticari Mal Maliyeti (-)
+Toplam Duran Varlıklar
+Toplam Dönen Varlıklar
+Toplam Hasılat
+Toplam Kaynaklar
+Toplam Kısa Vadeli Yükümlülükler
+Toplam Uzun Vadeli Yükümlülükler
+Toplam Varlıklar
+Toplam Özkaynaklar
+Toplanan Fonlar
+Türev Araçlar
+Türev Finansal Varlıklar
+Türev Finansal Yükümlülükler
+Türev Finansal İşlemlerden Kar (Zarar)
+Türev Ürünler Sonucunda Oluşan Zararlar (-)
+Türev Ürünlerden Elde Edilen Gelirler
+Türkiye Cumhuriyet Merkez Bankası Hesabı
+TİCARİ KAR VEYA ZARAR (Net)
+UZUN VADELİ YÜKÜMLÜLÜKLER
+UZUN VADELİ YÜKÜMLÜLÜKLER TOPLAMI
+Uzun Vadeli Karşılıklar
+Uzun vadeli Karşılıklar
+VARLIKLAR TOPLAMI
+Varlığa Dayalı Menkul Kıymetler
+Verilen Çekler Ve Ödeme Emirleri (-)
+Verilen Ücret ve Komisyonlar (-)
+YATIRIM GİDERLERİ (-)
+Yatırım Amaçlı Gayrimenkuller
+Yatırım Amaçlı Gayrimenkuller (Net)
+Yatırım Amaçlı Gayrimenkuller Değer Düşüklüğü Karşılığı (-)
+Yatırım Faaliyetlerinden Gelirler
+Yatırım Faaliyetlerinden Giderler (-)
+Yatırım Gelirleri
+Yatırım Yönetim Giderleri-Faiz Dahil (-)
+Yatırımlar Değer Azalışları (-)
+Yatırımların Nakte Çevrilmesi Sonucunda Oluşan Zararlar (-)
+Yazılan Primler (Reasürör Payı Düşülmüş Olarak)
+Yurt Dışı Satışlar
+Yurt İçi Satışlar
+YÜKÜMLÜLÜKLER TOPLAMI
+Yükümlülükler Toplamı
+Zorunlu Karşılıklardan Alınan Faizler
+Çalışanlara Sağlanan Faydalar Kapsamında Borçlar
+ÖZKAYNAK TOPLAMI
+ÖZKAYNAKLAR
+Ödenecek Kar Paylarının Defter Değeri ile Dağıtılan Nakit Dışı Varlıkların Değeri Arasındaki Fark
+Ödenecek Sosyal Güvenlik Kesintileri
+Ödenecek Vergi Ve Benzeri Diğer Yükümlülükler İle Karşılıkları
+Ödenecek Vergi ve Fonlar
+Ödenen Kar Payı Avansları (Net) (-)
+Ödenen Tazminatlar (Reasürör Payı Düşülmüş Olarak)
+Ödenen Tazminatlar (Reasürör Payı Düşülmüş Olarak) (-)
+Ödenen Tazminatlarda Reasürör Payı (+)
+Ödenmiş Sermaye
+Önceki Yıl Gelir ve Karları
+Önceki Yıl Gider ve Zararları (-)
+Özellikli Sigortalar Hesabı (+/-)
+Özkaynak Yöntemi Uygulanan Ortaklıklardan Kar (Zarar)
+Özkaynak Yöntemi Uygulanan Ortaklıklardan Kar (Zarar))
+Özkaynak Yöntemiyle Değerlenen Yatırımlar
+Özkaynak Yöntemiyle Değerlenen Yatırımlardan Yükümlülükler
+Özkaynak Yöntemiyle Değerlenen Yatırımların Kar/Zararlarındaki Paylar
+Özkaynak Yöntemiyle Değerlenen Yatırımların Karlarından (Zararlarından) Paylar
+Özkaynaklar
+İhraç Edilen Menkul Kıymetler (Net)
+İhraç Edilen Menkul Kıymetlere Verilen Faizler
+İkramiye Ve İndirimler Karşılığı - Net
+İkramiye ve İndirimler Karşılığı (-)
+İkramiye ve İndirimler Karşılığında Değişim (Reasürör Payı ve Devreden Kısım Düşülmüş Olarak) (+/-)
+İkramiye ve İndirimler Karşılığında Reasürör Payı (+)
+İlişkili Taraflara Borçlar
+İlişkili Taraflardan Alacaklar
+İmtiyaz Sözleşmelerine İlişkin Finansal Varlıklar
+İtfa Edilmiş Maliyet ile Ölçülen Finansal Varlıklar (Net)
+İtfa Edilmiş Maliyeti ile Ölçülen Finansal Varlıklar
+İtfa Edilmiş Maliyetinden Ölçülen Finansal Varlıkların Finansal Tablo Dışı Bırakılmasından Kaynaklanan Kazançlar (Kayıplar)
+İtfa Edilmiş Maliyetinden Ölçülen Finansal Varlıkların Gerçeğe Uygun Değer Farkı Kar veya Zarara Yansıtılan Olarak Sınıflandırılmasından Kazançlar (Kayıplar)
+İş Avansları
+İştirakler
+İştirakler (Net)
+İştirakler, Müşterek Kontrol Edilen İşletmeler ve Bağlı Ortaklıklardan Diğer Gelirler (Giderler)
+İştirakler, İş Ortaklıkları ve Bağlı Ortaklıklardaki Yatırımlar
+İştiraklerden Gelirler
+Şerefiye

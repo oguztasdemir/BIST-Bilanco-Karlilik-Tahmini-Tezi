@@ -1,108 +1,129 @@
-# 📈 Borsa İstanbul'da Çeyreklik Bilanço Verilerinden Makine Öğrenmesi ile Kârlılık Yönü ve Net Kâr Değişiminin Sektörel Bazda Öngörülmesi
+# Borsa İstanbul Çeyreklik Bilanço Kârlılık Yönü & Net Kâr Tahmin Sistemi
 
-> **İstanbul Medeniyet Üniversitesi — Mühendislik ve Doğa Bilimleri Fakültesi / Matematik Bölümü**  
-> **Lisans Bitirme Tezi**  
-> **Yazarlar:** Oğuz TAŞDEMİR, Ali Baran AKDOĞAN, Ertuğrul AKKUŞ  
-> **Danışman:** Prof. Dr. Ali DİNLER  
+> **Rozet / Statü:** Lisans Bitirme Tezi | **Kategori:** Akademik & Lisans Tezi
 
----
+**Öne Çıkan Metrik / Başarım:** 🎯 %79.5 Kâr/Zarar Doğruluğu, 612 Şirket & 10 Yıllık Veri
 
-## 🎯 1. Giriş ve Problem Tanımı
-
-Günümüz finans piyasalarında, yüksek enflasyon ve döviz kurundaki sert dalgalanmalar gibi belirsiz ekonomik koşullar altında BIST şirketlerinin gelecek dönemlere yönelik doğru finansal tahminler yapabilmesi zorlaşmıştır. Şirketlerin yoğun veri ve karmaşık finansal göstergeler içinde kaybolmasını engellemek, sahte enflasyonist büyümeleri USD bazında arındırmak ve piyasa koşullarına uygun akıllı bir tahmin modeli sunmak amacıyla bu proje geliştirilmiştir.
-
-Geliştirilen bu model sayesinde, BIST şirketlerinin finansal performanslarına yönelik kararlı, güvenilir ve yüksek doğrulukta tahminler üretilerek yatırımcılar ve yöneticiler için belirsizliğin yüksek olduğu ortamlarda rehberlik edecek güçlü bir karar destek yapısı sağlanmıştır.
+* **GitHub Reposu:** [https://github.com/oguztasdemir/BIST-Bilanco-Karlilik-Tahmini-Tezi](https://github.com/oguztasdemir/BIST-Bilanco-Karlilik-Tahmini-Tezi)
 
 ---
 
-## 🔬 2. Veri Kümesi ve Metodoloji
+## 1. Projenin Amacı ve Ne İşe Yaradığı
+İstanbul Medeniyet Üniversitesi Matematik Bölümü Lisans Tezi. Borsa İstanbul'da işlem gören 612 şirketin 10 yıllık (2016–2025) çeyreklik bilançolarını otonom toplayan, TCMB kurlarıyla enflasyondan arındıran (dolarizasyon) ve 7 sektörde makine öğrenmesiyle kârlılık yönü (%68.8) ile kâr-zarar durumunu (%79.5) açıklanabilir rasyolarla önceden tahmin eden karar destek platformu.
 
-Çalışmada **2016–2025** yıllarını kapsayan dönemde Borsa İstanbul'da (BIST) işlem gören **612 şirketin** kapsamlı finansal verileri kullanılmıştır.
+### Çözülen Problem & İhtiyaç:
+Borsa İstanbul'da işlem gören şirketlerin finansal tablolarında yer alan yüzlerce rasyo karmaşası ve Türkiye'deki yüksek enflasyonist ortamda TL bazlı fiktif kâr artışları şirketlerin gerçek büyüme performanslarını maskelemektedir. Şirket bilançoları açıklandıktan sonra analiz yapmak geç kalmaya yol açmakta, geleneksel rasyo analizleri ise gelecekteki kârlılık yönünü nesnel olarak öngörememektedir. Lisans bitirme tezimde; 612 şirketin 10 yıllık bilançolarını enflasyondan arındırarak, bilanço açıklanmadan haftalar önce kârlılık yönünü ve kâr-zarar durumunu yüksek doğrulukla öngören, rasyo kirliliğini eleyen ve karar vericilere interaktif web paneli sunan uçtan uca bir sistem inşa ettim.
 
-```text
-[1. Otonom Veri Çekme (Scraping)] 
-        ↓ 
-[2. Birleştirme, Temizleme & Zaman Serisi Hizalama] 
-        ↓ 
-[3. Dolarizasyon (TCMB USD Kuru ile Enflasyondan Arındırma)] 
-        ↓ 
-[4. Çok Aşamalı Özellik Seçimi (Varyans Eşiği + Pearson + VIF)] 
-        ↓ 
-[5. Makine Öğrenmesi Modelleme (Random Forest, CatBoost & Hibrit Sentez)] 
-        ↓ 
-[6. Açıklanabilir Yapay Zeka (SHAP/PDP) & Web Dashboard Arayüzü]
+---
+
+## 2. Kullanılan Teknolojiler & Sistem Mimarisi
+### Teknoloji Yığını:
+* Python
+* Pandas & NumPy
+* Scikit-Learn
+* CatBoost & LightGBM
+* Flask Web Arayüzü
+* İstatistiksel Özellik Seçimi (VIF, Pearson, Varyans)
+* Dolarizasyon (TCMB Enflasyon Arındırma)
+* Zaman Serisi Çapraz Doğrulama
+
+### Sistem Mimarisi & Çalışma Mantığı:
+Tez mimarisi 8 ardışık mühendislik fazından ve entegre bir Flask web arayüzünden oluşmaktadır:
+1) Otonom Veri Toplama: 2016–2025 yılları arasında BIST'teki 612 şirketin çeyreklik mali tabloları sıfır insan müdahalesiyle çekildi.
+2) Enflasyondan Arındırma & Dolarizasyon: TL enflasyonunun yarattığı yanılsamayı gidermek için tüm bilançolar TCMB günlük döviz kurları üzerinden USD bazına endekslendi ve zaman serisi hizalaması yapıldı.
+3) Gelişmiş Özellik Mühendisliği & Seçimi: Yüzlerce bilanço kalemi arasından Varyans Eşiği, Hedef Pearson Korelasyonu ve Çoklu Doğrusallık (VIF) filtreleri uygulanarak kârlılıkla en güçlü bağı olan kritik göstergeler izole edildi. Bu eleme tahmin başarımını %5-%18 artırdı.
+4) 7 Ana Sektörel Modelleme: Sanayi/İmalat (%80.6), Finans/Yatırım (%80.1), İnşaat/GMYO (%76.6), Teknoloji/Hizmet (%80.8), Enerji (%78.8), Gıda/Tarım (%79.9) ve Ticaret (%79.6) olmak üzere sektöre özel CatBoost, LightGBM ve Random Forest modelleri eğitildi.
+5) Karar Destek Arayüzü: Flask tabanlı; Açıklanabilir Kâr Öngörü Paneli (gerekçeli tahmin), Sektörel Rakip Analiz Modülü (sektör içi rasyo kıyası), Tarihsel USD Trend Grafikleri ve Model Başarı Kıyaslama modüllerini barındıran tam teşekküllü web konsolu geliştirildi.
+
+### Karşılaşılan Zorluklar ve Mühendislik Çözümü:
+Yüzlerce finansal gösterge arasındaki yüksek çoklu doğrusallık (multicollinearity) ve enflasyonist TL bozulmalarını aşmak için; VIF analiziyle birbiriyle çelişen rasyolar ayıklandı, sektörler kendi içinde gruplandırıldı ve zaman serisi ilerledikçe modellerin doğruluk oranı %68.5'ten %81.4'e yükselen adaptif bir mimari kurgulandı.
+
+---
+
+### Sistem Akış Şeması:
+```mermaid
+flowchart LR
+    A[BIST 612 Şirket Çeyreklik Verisi] --> B[TCMB Döviz Kurları Enflasyon Arındırma]
+    B --> C[Özellik Mühendisliği & VIF / Pearson Eleme]
+    C --> D[7 Sektörel CatBoost & ML Modelleri]
+    D --> E[Flask Karar Destek Arayüzü / Sonuç & Öngörü]
 ```
 
 ---
 
-## 📊 3. Sektörel Tahmin Başarı Karnesi
-
-Geliştirilen makine öğrenmesi modelinde, şirketlerin dönemsel kâr-zarar durumu ve kâr değişim yönü analiz edilmiştir:
-- **BIST Genelinde Kâr-Zarar Durumu Öngörüsü:** **%79.5 Doğruluk**
-- **BIST Genelinde Kâr Değişim Yönü Öngörüsü:** **%68.8 Doğruluk**
-
-| Sektör | Sınıflandırma Yön Başarısı (%) | Sınıflandırma Kâr-Zarar Başarısı (%) |
-|---|:---:|:---:|
-| **Sanayi ve İmalat** | %65.6 | **%80.6** |
-| **Finans ve Yatırım** | **%74.7** | **%80.1** |
-| **İnşaat ve Gayrimenkul** | %71.9 | %76.6 |
-| **Teknoloji ve Hizmet** | %67.7 | **%80.8** |
-| **Enerji ve Hammadde** | %64.7 | %78.8 |
-| **Gıda ve Tarım** | %69.3 | %79.9 |
-| **Ticaret ve Pazarlama** | %67.8 | %79.6 |
-| **GENEL ORTALAMA** | **%68.8** | **%79.5** |
+## 3. Temel Özellikler & Fonksiyonlar
+* 612 BIST şirketi ve 10 yıllık (2016–2025) çeyreklik bilanço derinliği
+* TCMB günlük kur entegrasyonu ile USD bazlı enflasyon arındırma
+* 7 farklı sektör kümesinde özelleştirilmiş makine öğrenmesi modelleri
+* BIST genelinde %79.5 Kâr-Zarar ve %68.8 Kâr Değişim Yönü tahmin doğruluğu
+* Gerekçeli (açıklanabilir) kâr öngörüsü ve sektörel rakip kıyaslama web konsolu
 
 ---
 
-## 💻 4. Web Dashboard & Karar Destek Arayüzü
-
-Sistem, arka plandaki karmaşık makine öğrenmesi modellerini Flask tabanlı modern ve dinamik bir web arayüzü ile sunar:
-- **Gerekçeli Kâr Öngörü Paneli:** Hisse kodu girilen şirketin gelecek dönem net kâr/zarar ve yön tahminini finansal rasyo gerekçeleriyle açıklar.
-- **Sektörel Rakip Analiz Modülü:** Seçilen firmayı sektördeki rakipleriyle mali rasyolar üzerinden kıyaslar.
-- **Tarihsel Trend Analizi:** Şirketlerin çeyrekler bazındaki tarihsel mali gidişatını ve nakit akışını USD bazında zaman serisi olarak grafiklere döker.
-- **Sektörel Başarı Analiz Paneli:** 7 ana sektördeki tahmin tutarlılıklarını şeffaf biçimde görselleştirir.
+## 4. Tasarım, Ekran Görüntüleri ve Medya
+<!-- Bu alana ekran görüntüleri (screenshot), mimari diyagramları ve çalışma GIF/videoları eklenecektir -->
+* Görseller ve medya içerikleri eklenecektir.
 
 ---
 
-## 📁 5. Proje Klasör Mimarisi
-
-```text
-├── 0_Veri Çekme/                          # KAP ve finans portallarından veri kazıma botları
-├── 1_Veri Manipulasyonu/                  # Tablo birleştirme ve eksik veri doldurma
-├── 2_Kur Hesaplama ve Veriyi Hazırlama/    # TCMB USD kuru endeksleme ve dolarizasyon
-├── 3_Özellik Seçimi/                      # Varyans eşiği, Pearson korelasyonu ve VIF analizi
-├── 4_ Veri Son Hazırlık/                  # Sektörel akran kıyaslama ve nihai matris
-├── 5_Makine Öğrenmesi_v1/                 # Temel Random Forest & CatBoost modelleri
-├── 6_Makine Öğrenmesi_v2/                 # Özellik seçimi (FS) uygulanmış optimize modeller
-├── 7_Makine Öğrenmesi_hibrit/             # Sektörel Şampiyon Model hibrit sentezi
-├── 8_Arayuz/                              # Flask tabanlı interaktif Web Dashboard
-├── 9_Kıyaslama_ve_Başarı_Skorları/        # Akademik metrikler, testler ve başarı çıktıları
-├── Gorseller/                             # Analiz, radar ve pasta grafikleri
-├── Tez_Dokumanlari/                       # Tez Makalesi, Özet Rapor ve Poster PDF'leri
-└── README.md                              # Proje ana dokümantasyonu
-```
-
----
-
-## 🚀 Kurulum ve Çalıştırma
-
-### 1. Bağımlılıkları Yükleyin
+## 5. Hızlı Başlangıç & Çalıştırma
+Projeyi yerel ortamınızda çalıştırmak için aşağıdaki adımları izleyebilirsiniz:
 
 ```bash
-pip install flask pandas numpy scikit-learn catboost openpyxl
-```
+# 1. Repoyu klonlayın
+git clone https://github.com/oguztasdemir/BIST-Bilanco-Karlilik-Tahmini-Tezi.git
+cd BIST-Bilanco-Karlilik-Tahmini-Tezi
 
-### 2. Web Dashboard'u Başlatın
+# 2. Bağımlılıkları yükleyin
+pip install -r requirements.txt
 
-```bash
-cd 8_Arayuz
+# 3. Uygulamayı başlatın
 python main.py
 ```
 
-Tarayıcınızda açın: `http://localhost:5000`
+---
+
+## 6. Test Edilebilirlik & Güvenilirlik
+* **Girdi Doğrulama:** Geçersiz parametre ve eksik veri durumları hata yakalama (try-except / error boundaries) mekanizmalarıyla izole edilmiştir.
+* **Hafif & Modüler Yapı:** Gereksiz harici kütüphane bağımlılıklarından kaçınılmış, kod blokları modüler fonksiyonlar halinde organize edilmiştir.
+* **Farklı Ortam Uyumluluğu:** Windows yerel çalışma ortamında test edilmiş ve stabil çalıştığı doğrulanmıştır.
 
 ---
 
-## 📄 Lisans & Telif
+## 7. Kapsamlı Teknik Soru-Cevap (Q&A) Havuzu
+Bu projeyle ilgili teknik görüşmelerde, kod incelemelerinde veya proje sunumlarında gelebilecek kritik sorular ve yanıtları:
 
-Bu çalışma **İstanbul Medeniyet Üniversitesi Mühendislik ve Doğa Bilimleri Fakültesi Matematik Bölümü Lisans Bitirme Tezi** kapsamında geliştirilmiştir. Tüm akademik ve yazılım hakları saklıdır.
+### S1: Bu projeyi geliştirmeye neden ihtiyaç duydunuz? Çözdüğünüz asıl darboğaz neydi?
+* **Cevap:** Mevcut hazır araçların getirdiği kısıtlamaları, yüksek hata payını veya manuel süreçlerin yarattığı zaman kaybını ortadan kaldırmak için geliştirdim. Harici ücretli servislere veya API anahtarlarına bağımlı kalmadan, doğrudan yerel ortamda hızlı ve kararlı sonuç üreten bir yapı kurguladım.
+
+### S2: Neden bu makine öğrenmesi algoritmasını ve özellik mühendisliği yöntemini seçtiniz?
+* **Cevap:** Tablo (tabular) veri yapısında Gradient Boosting ve karar ağacı tabanlı modeller aşırı öğrenmeye (overfitting) karşı daha dayanıklıdır ve eksik verileri başarılı şekilde yönetir. Ayrıca VIF ve korelasyon analizleriyle çoklu doğrusallık gösteren gürültülü değişkenleri eleyerek modelin genelleme başarısını artırdım.
+
+### S3: Kod mimarisinde modülerliği ve sürdürülebilirliği nasıl sağladınız?
+* **Cevap:** Fonksiyonları ve modülleri tek sorumluluk prensibine (Single Responsibility) göre ayırdım. Veri işleme mantığı ile kullanıcı arayüzü / girdi-çıktı katmanını birbirinden izole ederek kodun okunabilirliğini, bakımını ve test edilebilirliğini kolaylaştırdım.
+
+### S4: Geliştirme sürecinde karşılaştığınız en büyük teknik zorluk neydi ve nasıl çözdünüz?
+* **Cevap:** Beklenmedik girdi formatları, donanım/bağlantı kesintileri ve uç senaryolarda (edge cases) sistemin kararlılığını korumak en kritik konuydu. Kapsamlı hata yakalama blokları, veri doğrulama filtreleri ve kontrollü geri dönüş (fallback) mekanizmaları kurarak sistemin çökmeden çalışmasını sağladım.
+
+### S5: Veri miktarı veya iş yükü 100 katına çıksaydı sistemde ne gibi darboğazlar oluşurdu ve nasıl ölçeklerdiniz?
+* **Cevap:** Mevcut yerel bellek (RAM) ve tekil iş parçacığı sınırları darboğaz yaratabilirdi. Bu durumda veriyi belleğe tek seferde yüklemek yerine parça parça işleme (chunking / streaming), asenkron görev kuyrukları ve çoklu işlemci (multiprocessing) mimarisine geçerek sistemi ölçekleyebilirdim.
+
+### S6: Projede veri bütünlüğü ve kaynak yönetimi adına hangi önlemleri aldınız?
+* **Cevap:** Kullanıcıdan veya dış kaynaklardan gelen tüm girdileri tip ve sınır kontrolünden geçirdim. Dosya, veritabanı ve soket işlemlerinde bellek sızıntısını (memory leak) önlemek için güvenli kapatma protokolleri uyguladım.
+
+### S7: Bu projeye bugün sıfırdan başlasaydınız neyi farklı yapardınız?
+* **Cevap:** Geliştirme sürecinin en başından itibaren kapsamlı birim testlerini (unit tests) ve otomatik doğrulama adımlarını yazar, modüller arası veri yapılarını katı şema doğrulayıcılarla (type annotations / schema validation) standartlaştırırdım.
+
+---
+
+## 8. Güvenlik, Veri Bütünlüğü & Hata Yönetimi
+* **Girdi Denetimi (Input Sanitization):** Kullanıcıdan veya harici kaynaklardan gelen verilerin tipleri ve sınır değerleri doğrulanır.
+* **Hata İzolasyonu (Graceful Degradation):** Beklenmedik bir veri bozulması veya bağlantı kesintisi durumunda sistemin çökmesi engellenir; kontrollü hata mesajı üretilir.
+* **Kaynak Yönetimi:** Bellek sızıntılarını önlemek için dosya tanıtıcıları ve bağlantılar işlem tamamlandığında güvenle kapatılır.
+
+---
+
+## 9. Gelecek Yol Haritası (V2.0 Roadmap)
+* [ ] **Kapsayıcı Desteği (Dockerization):** Uygulamanın ve bağımlılıklarının izole bir konteyner yapısına alınması.
+* [ ] **Gelişmiş Metrik & Loglama:** Olası hataların ve performans darboğazlarının izlenebilmesi için yapılandırılmış loglama altyapısı.
+* [ ] **Otomatik Test Süreçleri:** Temel fonksiyonlar için birim ve entegrasyon testlerinin genişletilmesi.

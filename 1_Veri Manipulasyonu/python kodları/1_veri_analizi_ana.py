@@ -6,7 +6,7 @@ import os
 import numpy as np
 
 # --- AYARLAR ---
-base_path = r"c:\Users\User\Desktop\Tez Feature Selection\1_Veri Manipulasyonu"
+base_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")), "1_Veri Manipulasyonu")
 data_path = os.path.join(base_path, "0_Datasetler", "Veri_Havuzu_USD.xlsx")
 
 import sys

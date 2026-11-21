@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 # --- YOLLAR (YENİ HİYERARŞİ: 1-2-3) ---
-BASE_PATH = r"c:\Users\User\Desktop\Tez Feature Selection"
+BASE_PATH = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 PHASE2_DATA_DIR = os.path.join(BASE_PATH, "2_Kur Hesaplama ve Veriyi Hazırlama", "çıktılar", "3_Zaman_Serisi_Final")
 PHASE3_BASE = os.path.join(BASE_PATH, "3_Özellik Seçimi")
 

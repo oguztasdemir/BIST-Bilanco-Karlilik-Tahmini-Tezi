@@ -5,7 +5,7 @@ import json
 import sys
 
 # --- YOLLAR ---
-BASE_PATH = r"c:\Users\User\Desktop\Tez Feature Selection\1_Veri Manipulasyonu"
+BASE_PATH = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")), "1_Veri Manipulasyonu")
 OUT_DIR = os.path.join(BASE_PATH, "raporlar", "11_Veri_Tamamlama_Logu")
 os.makedirs(OUT_DIR, exist_ok=True)
 os.makedirs(OUT_DIR, exist_ok=True)

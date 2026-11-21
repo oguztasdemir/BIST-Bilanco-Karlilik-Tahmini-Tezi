@@ -9,8 +9,8 @@ import seaborn as sns
 #   ADIM 8: OTONOM ÖZELLİK SEÇİM ZİNCİRİ VE ANALİTİK RAPORLAMA
 # ============================================================
 
-BASE_PATH = r"c:\Users\User\Desktop\Tez Feature Selection\3_Özellik Seçimi"
-PHASE2_OUT_DIR = r"c:\Users\User\Desktop\Tez Feature Selection\2_Kur Hesaplama ve Veriyi Hazırlama\çıktılar\3_Zaman_Serisi_Final"
+BASE_PATH = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")), "3_Özellik Seçimi")
+PHASE2_OUT_DIR = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")), "2_Kur Hesaplama ve Veriyi Hazırlama", "çıktılar", "3_Zaman_Serisi_Final")
 SCRIPTS_DIR = os.path.join(BASE_PATH, "python kodları")
 OUT_DIR = os.path.join(BASE_PATH, "raporlar", "8_Feature_Selection_Analizi")
 IMG_DIR = os.path.join(BASE_PATH, "görseller", "8_Analiz_Grafikleri")

@@ -1,6 +1,6 @@
 import os
 
-BASE_PATH = r"c:\Users\User\Desktop\Tez Feature Selection"
+BASE_PATH = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 PHASE4_BASE = os.path.join(BASE_PATH, "4_ Veri Son Hazırlık")
 OUTPUT_BASE = os.path.join(PHASE4_BASE, "çıktılar")
 

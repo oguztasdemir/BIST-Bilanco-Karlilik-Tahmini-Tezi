@@ -3,7 +3,7 @@ import os
 import re
 
 # --- YOLLAR ---
-BASE_PATH = r"c:\Users\User\Desktop\Tez Feature Selection\1_Veri Manipulasyonu"
+BASE_PATH = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")), "1_Veri Manipulasyonu")
 DATA_PATH = os.path.join(BASE_PATH, "0_Datasetler", "Veri_Havuzu_USD.xlsx")
 
 import sys

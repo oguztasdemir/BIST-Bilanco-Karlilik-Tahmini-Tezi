@@ -7,7 +7,7 @@ import seaborn as sns
 from scipy.stats.mstats import winsorize
 
 # --- YOLLAR ---
-BASE_PATH = r"c:\Users\User\Desktop\Tez Feature Selection"
+BASE_PATH = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 PHASE3_DATA_DIR = os.path.join(BASE_PATH, "3_Özellik Seçimi", "raporlar", "6_Kur_Senkronizasyonu")
 PHASE4_BASE = os.path.join(BASE_PATH, "4_ Veri Son Hazırlık")
 

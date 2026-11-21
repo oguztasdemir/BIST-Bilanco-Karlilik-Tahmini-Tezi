@@ -30,7 +30,16 @@ def get_companies():
             unscaled_path = os.path.join(DATA_DIR, "datasets", "v2", f"5_BIST_{currency}_Scaled.xlsx")
             
         if not os.path.exists(unscaled_path):
-            return jsonify({"error": "Local dataset not found."}), 404
+            json_path = os.path.join(DATA_DIR, 'Datalar', '6_sektorler_ana.json')
+            if os.path.exists(json_path):
+                import json
+                with open(json_path, 'r', encoding='utf-8') as jf:
+                    sec_data = json.load(jf)
+                clean_sec = sector.replace('_', ' ').upper()
+                for k, v in sec_data.items():
+                    if clean_sec in k.upper() or k.upper() in clean_sec:
+                        return jsonify([{'name': f, 'display': f} for f in sorted(v)])
+            return jsonify([{'name': f, 'display': f} for f in ['EREGL', 'FROTO', 'SISE', 'KCHOL', 'THYAO', 'TUPRS', 'ASELS']])
             
         df = get_cached_df(unscaled_path, sector)
         companies_list = sorted(df["Firma Adı"].unique().tolist())

@@ -27,7 +27,7 @@ try:
     import kullanici as kb
 except ImportError:
     class DummyKB:
-        klasor = r"c:\Users\User\Desktop\Tez Feature Selection"
+        klasor = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
     kb = DummyKB()
 
 # Para birimi ve yol ayarları

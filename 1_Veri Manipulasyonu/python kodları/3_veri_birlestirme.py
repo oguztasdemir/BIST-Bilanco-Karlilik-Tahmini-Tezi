@@ -7,7 +7,7 @@ grey_fill = PatternFill(start_color="D3D3D3", end_color="D3D3D3", fill_type="sol
 blue_fill = PatternFill(start_color="ADD8E6", end_color="ADD8E6", fill_type="solid")
 
 # --- YOLLAR ---
-BASE_PATH = r"c:\Users\User\Desktop\Tez Feature Selection\1_Veri Manipulasyonu"
+BASE_PATH = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")), "1_Veri Manipulasyonu")
 
 import sys
 CURRENCY = ""

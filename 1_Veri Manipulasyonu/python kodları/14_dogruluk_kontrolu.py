@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # --- YOLLAR ---
-BASE_PATH = r"c:\Users\User\Desktop\Tez Feature Selection\1_Veri Manipulasyonu"
+BASE_PATH = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")), "1_Veri Manipulasyonu")
 RAW_DATA_DIR = os.path.join(BASE_PATH, "0_Datasetler")
 FINAL_DATA_DIR = os.path.join(BASE_PATH, "raporlar", "13_Cok_Kurlu")
 OUT_DIR = os.path.join(BASE_PATH, "raporlar", "14_Dogruluk_Raporu")

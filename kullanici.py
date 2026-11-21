@@ -1,3 +1,3 @@
-# Proje ana klasör yolu tanımlaması
-# Farklı bilgisayarlarda sadece bu değişkeni değiştirerek sistemi çalıştırabilirsiniz.
-klasor = r"c:\Users\User\Desktop\Tez Feature Selection"
+# Proje ana klasör yolu (her bilgisayarda otomatik algılanır)
+import os
+klasor = os.path.dirname(os.path.abspath(__file__))

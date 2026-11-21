@@ -7,7 +7,7 @@ import os
 #   verileri (USD, EUR, TRY) alır ve hepsini Gerçek USD'ye çevirir.
 # ============================================================
 
-BASE_PATH = r"c:\Users\User\Desktop\Tez Feature Selection"
+BASE_PATH = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 # KUR VERİSİ
 KUR_DOSYASI = os.path.join(BASE_PATH, "2_Kur Hesaplama ve Veriyi Hazırlama", "çıktılar", "1_Kur_Verileri", "doviz_ortalamalari.xlsx")
 # KAYNAK: 1. Klasör Adım 13 (Denetlenmiş Çok Kurlu Klasör)

@@ -6,7 +6,7 @@ import matplotlib.colors as mcolors
 import seaborn as sns
 
 # --- YOLLAR ---
-BASE_PATH = r"c:\Users\User\Desktop\Tez Feature Selection"
+BASE_PATH = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 PHASE4_BASE = os.path.join(BASE_PATH, "4_ Veri Son Hazırlık")
 INPUT_DIR = os.path.join(PHASE4_BASE, "çıktılar", "9_Adim_Sektorel_Akran_Kiyaslama")
 IMG_BASE = os.path.join(PHASE4_BASE, "görseller")

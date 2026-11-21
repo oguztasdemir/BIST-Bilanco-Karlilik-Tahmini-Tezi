@@ -10,7 +10,7 @@ import pandas as pd
 #   Orijinal scriptleri (3, 7, 9, 10, 11, 12, 14) ardışık olarak çağırır.
 # ============================================================
 
-BASE_PATH = r"c:\Users\User\Desktop\Tez Feature Selection\1_Veri Manipulasyonu"
+BASE_PATH = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..")), "1_Veri Manipulasyonu")
 SCRIPTS_DIR = os.path.join(BASE_PATH, "python kodları")
 DATASET_DIR = os.path.join(BASE_PATH, "0_Datasetler")
 

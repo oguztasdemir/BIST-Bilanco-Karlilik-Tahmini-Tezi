@@ -1,5 +1,8 @@
 # Borsa İstanbul Çeyreklik Bilanço Kârlılık Yönü & Net Kâr Tahmin Sistemi
 
+[![CI Tests](https://github.com/oguztasdemir/BIST-Bilanco-Karlilik-Tahmini-Tezi/actions/workflows/ci.yml/badge.svg)](https://github.com/oguztasdemir/BIST-Bilanco-Karlilik-Tahmini-Tezi/actions/workflows/ci.yml)
+
+
 > **Rozet / Statü:** Lisans Bitirme Tezi | **Kategori:** Akademik & Lisans Tezi
 
 **Öne Çıkan Metrik / Başarım:** 🎯 %79.5 Kâr/Zarar Doğruluğu, 612 Şirket & 10 Yıllık Veri
@@ -127,3 +130,29 @@ Bu projeyle ilgili teknik görüşmelerde, kod incelemelerinde veya proje sunuml
 * [ ] **Kapsayıcı Desteği (Dockerization):** Uygulamanın ve bağımlılıklarının izole bir konteyner yapısına alınması.
 * [ ] **Gelişmiş Metrik & Loglama:** Olası hataların ve performans darboğazlarının izlenebilmesi için yapılandırılmış loglama altyapısı.
 * [ ] **Otomatik Test Süreçleri:** Temel fonksiyonlar için birim ve entegrasyon testlerinin genişletilmesi.
+
+
+---
+
+## Ekran Görüntüleri
+
+### Sektorel Analiz Paneli
+![Sektorel Analiz Paneli](docs/screenshots/01_sektorel_analiz_paneli.png)
+
+### Tarihsel Trend Analizi
+![Tarihsel Trend Analizi](docs/screenshots/02_tarihsel_trend_analizi.png)
+
+### Regresyon Kar Tahmini
+![Regresyon Kar Tahmini](docs/screenshots/03_regresyon_kar_tahmini.png)
+
+
+---
+
+## Yerel Testler
+
+Projenin temel çalışma ve sözdizimi doğrulama testlerini çalıştırmak için:
+
+```bash
+pip install pytest
+pytest tests -v
+```

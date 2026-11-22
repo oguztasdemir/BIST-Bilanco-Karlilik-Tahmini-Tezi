@@ -20,3 +20,10 @@ env/
 .idea/
 .vscode/
 *.swp
+
+# Local scratch & cache
+8_Arayuz/scratch/
+
+# Local scratch & cache
+.cache/
+*.pkl
